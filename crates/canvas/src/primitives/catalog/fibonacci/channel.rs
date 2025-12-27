@@ -4,8 +4,8 @@
 //! Uses three points: two define the baseline, third defines the channel width.
 
 use super::super::{
-    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, TextAlign, TextAnchor, config::FibLevelConfig, crisp,
+    config::FibLevelConfig, crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData,
+    PrimitiveKind, PrimitiveMetadata, RenderContext, TextAlign, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 

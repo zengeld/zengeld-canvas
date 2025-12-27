@@ -1,8 +1,8 @@
 //! Elliott Correction Wave - ABC corrective pattern
 
 use super::super::{
-    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, crisp,
+    crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext,
 };
 use serde::{Deserialize, Serialize};
 

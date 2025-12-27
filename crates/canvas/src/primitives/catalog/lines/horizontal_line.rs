@@ -3,8 +3,8 @@
 //! A horizontal line at a specific price level.
 
 use super::super::{
-    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, TextAlign, TextAnchor, crisp,
+    crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 

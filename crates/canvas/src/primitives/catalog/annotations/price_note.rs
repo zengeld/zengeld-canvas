@@ -3,8 +3,8 @@
 //! Uses centralized PrimitiveText system for text configuration.
 
 use super::super::{
-    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, PrimitiveText,
-    RenderContext, TextAnchor, crisp,
+    crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    PrimitiveText, RenderContext, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 

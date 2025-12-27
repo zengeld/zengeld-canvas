@@ -30,13 +30,13 @@ pub use viewport::Viewport;
 
 // X-axis (TimeScale)
 pub use time_scale::{
-    DAY, HOUR, MINUTE, TickMarkWeight, TimeScale, TimeTick, format_time_by_weight, format_time_full,
+    format_time_by_weight, format_time_full, TickMarkWeight, TimeScale, TimeTick, DAY, HOUR, MINUTE,
 };
 
 // Y-axis (PriceScale)
 pub use price_scale::{
-    NICE_MULTIPLIERS, PriceScale, PriceScaleMode, format_price, lwc_nice_number, nice_number,
-    nice_price_step, price_precision,
+    format_price, lwc_nice_number, nice_number, nice_price_step, price_precision, PriceScale,
+    PriceScaleMode, NICE_MULTIPLIERS,
 };
 
 // Legacy alias for ChartCoords users

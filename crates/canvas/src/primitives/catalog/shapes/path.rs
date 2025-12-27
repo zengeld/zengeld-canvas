@@ -3,8 +3,8 @@
 //! A freeform path that can contain straight and curved segments.
 
 use super::super::{
-    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, TextAlign, TextAnchor, crisp,
+    crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 

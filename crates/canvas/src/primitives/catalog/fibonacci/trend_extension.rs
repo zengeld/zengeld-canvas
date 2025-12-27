@@ -4,8 +4,8 @@
 //! Point 1 and 2 define the trend, Point 3 is the retracement.
 
 use super::super::{
-    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, config::FibLevelConfig, crisp,
+    config::FibLevelConfig, crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData,
+    PrimitiveKind, PrimitiveMetadata, RenderContext,
 };
 use serde::{Deserialize, Serialize};
 

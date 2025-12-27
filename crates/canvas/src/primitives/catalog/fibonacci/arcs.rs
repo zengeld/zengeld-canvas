@@ -4,8 +4,8 @@
 //! Arcs emanate from the second point at Fib ratios of the distance.
 
 use super::super::{
-    EllipseParams, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind,
-    PrimitiveMetadata, RenderContext, TextAlign, TextAnchor, config::FibLevelConfig, crisp,
+    config::FibLevelConfig, crisp, EllipseParams, LineStyle, Primitive, PrimitiveColor,
+    PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext, TextAlign, TextAnchor,
 };
 use crate::Viewport;
 use serde::{Deserialize, Serialize};

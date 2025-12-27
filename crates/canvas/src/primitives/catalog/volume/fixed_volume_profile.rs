@@ -1,8 +1,8 @@
 //! Fixed Volume Profile - volume profile over fixed range
 
 use super::super::{
-    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
-    crisp,
+    crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext,
 };
 use serde::{Deserialize, Serialize};
 

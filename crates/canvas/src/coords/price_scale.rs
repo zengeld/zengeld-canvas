@@ -9,8 +9,8 @@
 //! - Percent: Percentage change from base price
 //! - Logarithmic: Log scale for large price ranges
 
-use crate::Bar;
 use crate::core::{PRICE_SCALE_FONT_SIZE_MAX, PRICE_SCALE_FONT_SIZE_MIN, PRICE_SCALE_WIDTH};
+use crate::Bar;
 
 // =============================================================================
 // Price Scale Mode

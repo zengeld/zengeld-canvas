@@ -1,8 +1,8 @@
 //! Pattern Match Event - Detected chart pattern events
 
 use super::super::{
-    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
-    TextAnchor, crisp,
+    crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 

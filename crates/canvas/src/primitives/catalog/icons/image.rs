@@ -3,8 +3,8 @@
 //! Uses 5 data-coordinate points: center + 4 edge points (top, right, bottom, left)
 
 use super::super::{
-    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
-    crisp,
+    crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext,
 };
 use serde::{Deserialize, Serialize};
 

@@ -1,8 +1,8 @@
 //! Breakdown/Breakout Event - Level breakout or breakdown events
 
 use super::super::{
-    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
-    TextAlign, TextAnchor, crisp,
+    crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 

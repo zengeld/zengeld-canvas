@@ -1,8 +1,8 @@
 //! Divergence Event - RSI/MACD/indicator divergence markers
 
 use super::super::{
-    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
-    TextAnchor, crisp,
+    crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 

@@ -3,8 +3,8 @@
 //! A rectangular box defined by two corner points (drag to create).
 
 use super::super::{
-    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, TextAlign, TextAnchor, crisp,
+    crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 

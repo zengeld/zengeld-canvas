@@ -1,8 +1,8 @@
 //! Arrow Up primitive - bullish signal arrow
 
 use super::super::{
-    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
-    TextAlign, TextAnchor, crisp,
+    crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 

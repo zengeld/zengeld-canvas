@@ -15,9 +15,12 @@ mod types;
 
 // Re-export types
 pub use types::{
+    crisp,
+    crisp_rect,
+    Bar,
+    Theme,
     BOTTOM_SIDEBAR_HEIGHT,
     BOTTOM_TOOLBAR_HEIGHT,
-    Bar,
     // Sidebar & toolbar constants
     LEFT_SIDEBAR_WIDTH,
     LEFT_TOOLBAR_WIDTH,
@@ -39,9 +42,6 @@ pub use types::{
     TIME_SCALE_FONT_SIZE,
     TIME_SCALE_HEIGHT,
     TOP_TOOLBAR_HEIGHT,
-    Theme,
-    crisp,
-    crisp_rect,
 };
 
 // Re-export utility functions

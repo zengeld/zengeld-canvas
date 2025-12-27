@@ -5,7 +5,7 @@
 //! 2. `Chart` - builder pattern that creates ChartConfig internally
 
 use super::config::{ChartConfig, PrimitiveConfig, SeriesConfig, SignalConfig, ThemeConfig};
-use crate::coords::{PriceScale, TickMarkWeight, format_time_by_weight};
+use crate::coords::{format_time_by_weight, PriceScale, TickMarkWeight};
 use crate::core::{Bar, PRICE_SCALE_WIDTH, TIME_SCALE_HEIGHT};
 use crate::model::{
     CandlestickData, CandlestickStyleOptions, Indicator, LineData, LineStyleOptions, SeriesType,

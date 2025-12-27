@@ -1,8 +1,8 @@
 //! Zone Event - Supply/demand zones, order blocks, liquidity events
 
 use super::super::{
-    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
-    TextAnchor, crisp_rect,
+    crisp_rect, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 

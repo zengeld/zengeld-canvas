@@ -4,8 +4,8 @@
 //! Useful for measuring the slope of price movements.
 
 use super::super::{
-    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, TextAlign, TextAnchor, crisp,
+    crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor,
 };
 use crate::Viewport;
 use serde::{Deserialize, Serialize};
@@ -68,7 +68,11 @@ impl TrendAngle {
         let dy = y1 - y2; // Inverted because screen Y is flipped
 
         if dx.abs() < 1e-10 {
-            if dy >= 0.0 { 90.0 } else { -90.0 }
+            if dy >= 0.0 {
+                90.0
+            } else {
+                -90.0
+            }
         } else {
             (dy / dx).atan().to_degrees()
         }

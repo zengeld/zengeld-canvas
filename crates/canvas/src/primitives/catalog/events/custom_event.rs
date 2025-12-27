@@ -1,8 +1,8 @@
 //! Custom Event - User-defined strategy events with plugin extensibility
 
 use super::super::{
-    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
-    TextAnchor, crisp,
+    crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 

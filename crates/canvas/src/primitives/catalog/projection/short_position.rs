@@ -1,8 +1,8 @@
 //! Short Position - sell trade visualization
 
 use super::super::{
-    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, TextAlign, TextAnchor, crisp,
+    crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 
@@ -43,7 +43,11 @@ impl ShortPosition {
     pub fn risk_reward(&self) -> f64 {
         let risk = (self.stop_loss - self.entry_price).abs();
         let reward = (self.entry_price - self.take_profit).abs();
-        if risk > 0.0 { reward / risk } else { 0.0 }
+        if risk > 0.0 {
+            reward / risk
+        } else {
+            0.0
+        }
     }
 }
 

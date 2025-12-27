@@ -29,34 +29,63 @@ impl PyBar {
     #[pyo3(signature = (timestamp, open, high, low, close, volume=0.0))]
     fn new(timestamp: i64, open: f64, high: f64, low: f64, close: f64, volume: f64) -> Self {
         Self {
-            inner: Bar { timestamp, open, high, low, close, volume },
+            inner: Bar {
+                timestamp,
+                open,
+                high,
+                low,
+                close,
+                volume,
+            },
         }
     }
 
     #[getter]
-    fn timestamp(&self) -> i64 { self.inner.timestamp }
+    fn timestamp(&self) -> i64 {
+        self.inner.timestamp
+    }
     #[getter]
-    fn open(&self) -> f64 { self.inner.open }
+    fn open(&self) -> f64 {
+        self.inner.open
+    }
     #[getter]
-    fn high(&self) -> f64 { self.inner.high }
+    fn high(&self) -> f64 {
+        self.inner.high
+    }
     #[getter]
-    fn low(&self) -> f64 { self.inner.low }
+    fn low(&self) -> f64 {
+        self.inner.low
+    }
     #[getter]
-    fn close(&self) -> f64 { self.inner.close }
+    fn close(&self) -> f64 {
+        self.inner.close
+    }
     #[getter]
-    fn volume(&self) -> f64 { self.inner.volume }
+    fn volume(&self) -> f64 {
+        self.inner.volume
+    }
 
-    fn is_bullish(&self) -> bool { self.inner.close > self.inner.open }
+    fn is_bullish(&self) -> bool {
+        self.inner.close > self.inner.open
+    }
 
     fn __repr__(&self) -> String {
-        format!("Bar(ts={}, o={}, h={}, l={}, c={}, v={})",
-            self.inner.timestamp, self.inner.open, self.inner.high,
-            self.inner.low, self.inner.close, self.inner.volume)
+        format!(
+            "Bar(ts={}, o={}, h={}, l={}, c={}, v={})",
+            self.inner.timestamp,
+            self.inner.open,
+            self.inner.high,
+            self.inner.low,
+            self.inner.close,
+            self.inner.volume
+        )
     }
 }
 
 impl PyBar {
-    fn to_rust(&self) -> Bar { self.inner }
+    fn to_rust(&self) -> Bar {
+        self.inner
+    }
 }
 
 // =============================================================================
@@ -83,7 +112,9 @@ impl PyChart {
     #[new]
     #[pyo3(signature = (width, height))]
     fn new(width: u32, height: u32) -> Self {
-        Self { inner: Some(RustChart::new(width, height)) }
+        Self {
+            inner: Some(RustChart::new(width, height)),
+        }
     }
 
     // =========================================================================
@@ -154,7 +185,8 @@ impl PyChart {
 
     /// Apply dark theme
     fn dark_theme(&mut self) {
-        let chart = self.take_inner()
+        let chart = self
+            .take_inner()
             .background("#131722")
             .colors("#26a69a", "#ef5350");
         self.put_inner(chart);
@@ -162,7 +194,8 @@ impl PyChart {
 
     /// Apply light theme
     fn light_theme(&mut self) {
-        let chart = self.take_inner()
+        let chart = self
+            .take_inner()
             .background("#ffffff")
             .colors("#26a69a", "#ef5350");
         self.put_inner(chart);
@@ -767,7 +800,9 @@ impl PyChart {
     #[pyo3(signature = (bar_index, price, label=None))]
     fn buy_signal(&mut self, bar_index: usize, price: f64, label: Option<String>) {
         let mut signal = SignalConfig::buy(bar_index, price);
-        if let Some(l) = label { signal = signal.with_label(&l); }
+        if let Some(l) = label {
+            signal = signal.with_label(&l);
+        }
         let chart = self.take_inner().signal(signal);
         self.put_inner(chart);
     }
@@ -776,7 +811,9 @@ impl PyChart {
     #[pyo3(signature = (bar_index, price, label=None))]
     fn sell_signal(&mut self, bar_index: usize, price: f64, label: Option<String>) {
         let mut signal = SignalConfig::sell(bar_index, price);
-        if let Some(l) = label { signal = signal.with_label(&l); }
+        if let Some(l) = label {
+            signal = signal.with_label(&l);
+        }
         let chart = self.take_inner().signal(signal);
         self.put_inner(chart);
     }
@@ -785,7 +822,9 @@ impl PyChart {
     #[pyo3(signature = (bar_index, price, label=None))]
     fn entry_signal(&mut self, bar_index: usize, price: f64, label: Option<String>) {
         let mut signal = SignalConfig::entry(bar_index, price);
-        if let Some(l) = label { signal = signal.with_label(&l); }
+        if let Some(l) = label {
+            signal = signal.with_label(&l);
+        }
         let chart = self.take_inner().signal(signal);
         self.put_inner(chart);
     }
@@ -794,7 +833,9 @@ impl PyChart {
     #[pyo3(signature = (bar_index, price, label=None))]
     fn exit_signal(&mut self, bar_index: usize, price: f64, label: Option<String>) {
         let mut signal = SignalConfig::exit(bar_index, price);
-        if let Some(l) = label { signal = signal.with_label(&l); }
+        if let Some(l) = label {
+            signal = signal.with_label(&l);
+        }
         let chart = self.take_inner().signal(signal);
         self.put_inner(chart);
     }
@@ -803,7 +844,9 @@ impl PyChart {
     #[pyo3(signature = (bar_index, price, label=None))]
     fn take_profit_signal(&mut self, bar_index: usize, price: f64, label: Option<String>) {
         let mut signal = SignalConfig::take_profit(bar_index, price);
-        if let Some(l) = label { signal = signal.with_label(&l); }
+        if let Some(l) = label {
+            signal = signal.with_label(&l);
+        }
         let chart = self.take_inner().signal(signal);
         self.put_inner(chart);
     }
@@ -812,7 +855,9 @@ impl PyChart {
     #[pyo3(signature = (bar_index, price, label=None))]
     fn stop_loss_signal(&mut self, bar_index: usize, price: f64, label: Option<String>) {
         let mut signal = SignalConfig::stop_loss(bar_index, price);
-        if let Some(l) = label { signal = signal.with_label(&l); }
+        if let Some(l) = label {
+            signal = signal.with_label(&l);
+        }
         let chart = self.take_inner().signal(signal);
         self.put_inner(chart);
     }
@@ -1486,7 +1531,10 @@ impl PyChart {
 
     /// Render chart to SVG string
     fn render_svg(&self) -> String {
-        self.inner.as_ref().map(|c| c.render_svg()).unwrap_or_default()
+        self.inner
+            .as_ref()
+            .map(|c| c.render_svg())
+            .unwrap_or_default()
     }
 }
 
@@ -1495,41 +1543,99 @@ impl PyChart {
 // =============================================================================
 
 #[pyclass(name = "Viewport")]
-pub struct PyViewport { inner: Viewport }
+pub struct PyViewport {
+    inner: Viewport,
+}
 
 #[pymethods]
 impl PyViewport {
     #[new]
-    fn new(width: f64, height: f64) -> Self { Self { inner: Viewport::new(width, height) } }
-    #[getter] fn chart_width(&self) -> f64 { self.inner.chart_width() }
-    #[getter] fn chart_height(&self) -> f64 { self.inner.chart_height }
-    #[getter] fn bar_width(&self) -> f64 { self.inner.bar_width() }
-    fn set_size(&mut self, width: f64, height: f64) { self.inner.set_size(width, height); }
-    fn set_bar_count(&mut self, count: usize) { self.inner.set_bar_count(count); }
-    fn scroll_to_end(&mut self) { self.inner.scroll_to_end(); }
-    fn scroll_to_start(&mut self) { self.inner.scroll_to_start(); }
+    fn new(width: f64, height: f64) -> Self {
+        Self {
+            inner: Viewport::new(width, height),
+        }
+    }
+    #[getter]
+    fn chart_width(&self) -> f64 {
+        self.inner.chart_width()
+    }
+    #[getter]
+    fn chart_height(&self) -> f64 {
+        self.inner.chart_height
+    }
+    #[getter]
+    fn bar_width(&self) -> f64 {
+        self.inner.bar_width()
+    }
+    fn set_size(&mut self, width: f64, height: f64) {
+        self.inner.set_size(width, height);
+    }
+    fn set_bar_count(&mut self, count: usize) {
+        self.inner.set_bar_count(count);
+    }
+    fn scroll_to_end(&mut self) {
+        self.inner.scroll_to_end();
+    }
+    fn scroll_to_start(&mut self) {
+        self.inner.scroll_to_start();
+    }
 }
 
 #[pyclass(name = "Theme")]
-pub struct PyTheme { inner: Theme }
+pub struct PyTheme {
+    inner: Theme,
+}
 
 #[pymethods]
 impl PyTheme {
-    #[staticmethod] fn dark() -> Self { Self { inner: Theme::dark() } }
-    #[staticmethod] fn light() -> Self { Self { inner: Theme::light() } }
-    #[getter] fn bg_color(&self) -> &str { self.inner.bg_color }
-    #[getter] fn text_color(&self) -> &str { self.inner.text_color }
-    #[getter] fn grid_color(&self) -> &str { self.inner.grid_color }
-    #[getter] fn candle_up(&self) -> &str { self.inner.candle_up }
-    #[getter] fn candle_down(&self) -> &str { self.inner.candle_down }
+    #[staticmethod]
+    fn dark() -> Self {
+        Self {
+            inner: Theme::dark(),
+        }
+    }
+    #[staticmethod]
+    fn light() -> Self {
+        Self {
+            inner: Theme::light(),
+        }
+    }
+    #[getter]
+    fn bg_color(&self) -> &str {
+        self.inner.bg_color
+    }
+    #[getter]
+    fn text_color(&self) -> &str {
+        self.inner.text_color
+    }
+    #[getter]
+    fn grid_color(&self) -> &str {
+        self.inner.grid_color
+    }
+    #[getter]
+    fn candle_up(&self) -> &str {
+        self.inner.candle_up
+    }
+    #[getter]
+    fn candle_down(&self) -> &str {
+        self.inner.candle_down
+    }
 }
 
 #[pyclass(name = "ChartConfig")]
-pub struct PyChartConfig { #[allow(dead_code)] inner: RustChartConfig }
+pub struct PyChartConfig {
+    #[allow(dead_code)]
+    inner: RustChartConfig,
+}
 
 #[pymethods]
 impl PyChartConfig {
-    #[new] fn new() -> Self { Self { inner: RustChartConfig::default() } }
+    #[new]
+    fn new() -> Self {
+        Self {
+            inner: RustChartConfig::default(),
+        }
+    }
 }
 
 // =============================================================================
@@ -1537,7 +1643,9 @@ impl PyChartConfig {
 // =============================================================================
 
 #[pyfunction]
-fn version() -> &'static str { env!("CARGO_PKG_VERSION") }
+fn version() -> &'static str {
+    env!("CARGO_PKG_VERSION")
+}
 
 #[pymodule]
 fn zengeld_canvas(m: &Bound<'_, PyModule>) -> PyResult<()> {

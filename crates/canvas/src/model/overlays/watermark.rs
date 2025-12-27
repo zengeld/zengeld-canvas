@@ -188,7 +188,11 @@ impl Watermark {
             .enumerate()
             .map(|(i, line)| {
                 let h = line.font_size;
-                if i > 0 { h * line_spacing } else { h }
+                if i > 0 {
+                    h * line_spacing
+                } else {
+                    h
+                }
             })
             .sum();
 

@@ -6,7 +6,7 @@
 use super::config::{
     ConfigProperty, PropertyCategory, PropertyValue, SelectOption, TimeframeVisibilityConfig,
 };
-use super::render::{RenderContext, crisp};
+use super::render::{crisp, RenderContext};
 use super::types::{LineStyle, PrimitiveColor, PrimitiveText, TextAlign, TextAnchor};
 use serde::{Deserialize, Serialize};
 

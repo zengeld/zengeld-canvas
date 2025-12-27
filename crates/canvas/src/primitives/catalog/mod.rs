@@ -60,16 +60,16 @@ pub use volume::*;
 // Re-export core types for primitives to use via super::super
 // This maintains backward compatibility with existing primitive imports
 pub use super::core::{
-    ControlPoint, ControlPointType, ExtendMode, LineStyle, Primitive, PrimitiveColor,
-    PrimitiveData, PrimitiveKind, PrimitiveText, SyncMode, TextAlign, TextAnchor,
-    normalize_text_rotation, point_to_line_distance,
+    normalize_text_rotation, point_to_line_distance, ControlPoint, ControlPointType, ExtendMode,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveText, SyncMode,
+    TextAlign, TextAnchor,
 };
 
 // Re-export render module and its types (for super::super::render::X usage)
 pub use super::core::render;
 pub use super::core::render::{
-    EllipseParams, RenderContext, RenderOp, RenderOps, TextBaseline, crisp, crisp_rect,
-    execute_ops, render_primitive_text, render_primitive_text_rotated, render_text_with_background,
+    crisp, crisp_rect, execute_ops, render_primitive_text, render_primitive_text_rotated,
+    render_text_with_background, EllipseParams, RenderContext, RenderOp, RenderOps, TextBaseline,
 };
 
 // Re-export config module and its types (for super::super::config::X usage)

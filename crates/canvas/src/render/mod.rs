@@ -55,7 +55,7 @@ pub use engine::{Path, PathBuilder, PathCommand};
 pub use engine::RenderCommand;
 
 // Batch
-pub use engine::{RenderBatch, RenderQueue, layers};
+pub use engine::{layers, RenderBatch, RenderQueue};
 
 // Backend
 pub use engine::{
@@ -69,7 +69,7 @@ pub use engine::{
 };
 
 // Coordinate conversion
-pub use engine::{CoordSystem, snap_point_to_pixel, snap_rect_to_pixel, snap_to_pixel};
+pub use engine::{snap_point_to_pixel, snap_rect_to_pixel, snap_to_pixel, CoordSystem};
 
 // =============================================================================
 // Re-exports from chart

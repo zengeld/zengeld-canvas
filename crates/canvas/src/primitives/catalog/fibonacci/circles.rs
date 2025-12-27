@@ -4,8 +4,8 @@
 //! The radius is defined by a second point.
 
 use super::super::{
-    EllipseParams, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind,
-    PrimitiveMetadata, RenderContext, TextAlign, TextAnchor, config::FibLevelConfig,
+    config::FibLevelConfig, EllipseParams, LineStyle, Primitive, PrimitiveColor, PrimitiveData,
+    PrimitiveKind, PrimitiveMetadata, RenderContext, TextAlign, TextAnchor,
 };
 use serde::{Deserialize, Serialize};
 

@@ -47,25 +47,46 @@ impl JsBar {
     #[wasm_bindgen(constructor)]
     pub fn new(timestamp: i64, open: f64, high: f64, low: f64, close: f64, volume: f64) -> Self {
         Self {
-            inner: Bar { timestamp, open, high, low, close, volume },
+            inner: Bar {
+                timestamp,
+                open,
+                high,
+                low,
+                close,
+                volume,
+            },
         }
     }
 
     #[wasm_bindgen(getter)]
-    pub fn timestamp(&self) -> i64 { self.inner.timestamp }
+    pub fn timestamp(&self) -> i64 {
+        self.inner.timestamp
+    }
     #[wasm_bindgen(getter)]
-    pub fn open(&self) -> f64 { self.inner.open }
+    pub fn open(&self) -> f64 {
+        self.inner.open
+    }
     #[wasm_bindgen(getter)]
-    pub fn high(&self) -> f64 { self.inner.high }
+    pub fn high(&self) -> f64 {
+        self.inner.high
+    }
     #[wasm_bindgen(getter)]
-    pub fn low(&self) -> f64 { self.inner.low }
+    pub fn low(&self) -> f64 {
+        self.inner.low
+    }
     #[wasm_bindgen(getter)]
-    pub fn close(&self) -> f64 { self.inner.close }
+    pub fn close(&self) -> f64 {
+        self.inner.close
+    }
     #[wasm_bindgen(getter)]
-    pub fn volume(&self) -> f64 { self.inner.volume }
+    pub fn volume(&self) -> f64 {
+        self.inner.volume
+    }
 
     #[wasm_bindgen(js_name = isBullish)]
-    pub fn is_bullish(&self) -> bool { self.inner.close > self.inner.open }
+    pub fn is_bullish(&self) -> bool {
+        self.inner.close > self.inner.open
+    }
 }
 
 // =============================================================================
@@ -92,7 +113,9 @@ impl Chart {
     /// Create a new chart with specified dimensions.
     #[wasm_bindgen(constructor)]
     pub fn new(width: u32, height: u32) -> Self {
-        Self { inner: Some(RustChart::new(width, height)) }
+        Self {
+            inner: Some(RustChart::new(width, height)),
+        }
     }
 
     // =========================================================================
@@ -167,7 +190,8 @@ impl Chart {
     /// Apply dark theme
     #[wasm_bindgen(js_name = darkTheme)]
     pub fn dark_theme(&mut self) {
-        let chart = self.take_inner()
+        let chart = self
+            .take_inner()
             .background("#131722")
             .colors("#26a69a", "#ef5350");
         self.put_inner(chart);
@@ -176,7 +200,8 @@ impl Chart {
     /// Apply light theme
     #[wasm_bindgen(js_name = lightTheme)]
     pub fn light_theme(&mut self) {
-        let chart = self.take_inner()
+        let chart = self
+            .take_inner()
             .background("#ffffff")
             .colors("#26a69a", "#ef5350");
         self.put_inner(chart);
@@ -856,7 +881,9 @@ impl Chart {
     #[wasm_bindgen(js_name = buySignal)]
     pub fn buy_signal(&mut self, bar_index: usize, price: f64, label: Option<String>) {
         let mut signal = SignalConfig::buy(bar_index, price);
-        if let Some(l) = label { signal = signal.with_label(&l); }
+        if let Some(l) = label {
+            signal = signal.with_label(&l);
+        }
         let chart = self.take_inner().signal(signal);
         self.put_inner(chart);
     }
@@ -865,7 +892,9 @@ impl Chart {
     #[wasm_bindgen(js_name = sellSignal)]
     pub fn sell_signal(&mut self, bar_index: usize, price: f64, label: Option<String>) {
         let mut signal = SignalConfig::sell(bar_index, price);
-        if let Some(l) = label { signal = signal.with_label(&l); }
+        if let Some(l) = label {
+            signal = signal.with_label(&l);
+        }
         let chart = self.take_inner().signal(signal);
         self.put_inner(chart);
     }
@@ -874,7 +903,9 @@ impl Chart {
     #[wasm_bindgen(js_name = entrySignal)]
     pub fn entry_signal(&mut self, bar_index: usize, price: f64, label: Option<String>) {
         let mut signal = SignalConfig::entry(bar_index, price);
-        if let Some(l) = label { signal = signal.with_label(&l); }
+        if let Some(l) = label {
+            signal = signal.with_label(&l);
+        }
         let chart = self.take_inner().signal(signal);
         self.put_inner(chart);
     }
@@ -883,7 +914,9 @@ impl Chart {
     #[wasm_bindgen(js_name = exitSignal)]
     pub fn exit_signal(&mut self, bar_index: usize, price: f64, label: Option<String>) {
         let mut signal = SignalConfig::exit(bar_index, price);
-        if let Some(l) = label { signal = signal.with_label(&l); }
+        if let Some(l) = label {
+            signal = signal.with_label(&l);
+        }
         let chart = self.take_inner().signal(signal);
         self.put_inner(chart);
     }
@@ -892,7 +925,9 @@ impl Chart {
     #[wasm_bindgen(js_name = takeProfitSignal)]
     pub fn take_profit_signal(&mut self, bar_index: usize, price: f64, label: Option<String>) {
         let mut signal = SignalConfig::take_profit(bar_index, price);
-        if let Some(l) = label { signal = signal.with_label(&l); }
+        if let Some(l) = label {
+            signal = signal.with_label(&l);
+        }
         let chart = self.take_inner().signal(signal);
         self.put_inner(chart);
     }
@@ -901,7 +936,9 @@ impl Chart {
     #[wasm_bindgen(js_name = stopLossSignal)]
     pub fn stop_loss_signal(&mut self, bar_index: usize, price: f64, label: Option<String>) {
         let mut signal = SignalConfig::stop_loss(bar_index, price);
-        if let Some(l) = label { signal = signal.with_label(&l); }
+        if let Some(l) = label {
+            signal = signal.with_label(&l);
+        }
         let chart = self.take_inner().signal(signal);
         self.put_inner(chart);
     }
@@ -1678,7 +1715,10 @@ impl Chart {
     /// Render chart to SVG string
     #[wasm_bindgen(js_name = renderSvg)]
     pub fn render_svg(&self) -> String {
-        self.inner.as_ref().map(|c| c.render_svg()).unwrap_or_default()
+        self.inner
+            .as_ref()
+            .map(|c| c.render_svg())
+            .unwrap_or_default()
     }
 }
 
@@ -1696,29 +1736,45 @@ pub struct JsViewport {
 impl JsViewport {
     #[wasm_bindgen(constructor)]
     pub fn new(width: f64, height: f64) -> Self {
-        Self { inner: Viewport::new(width, height) }
+        Self {
+            inner: Viewport::new(width, height),
+        }
     }
 
     #[wasm_bindgen(getter, js_name = chartWidth)]
-    pub fn chart_width(&self) -> f64 { self.inner.chart_width() }
+    pub fn chart_width(&self) -> f64 {
+        self.inner.chart_width()
+    }
 
     #[wasm_bindgen(getter, js_name = chartHeight)]
-    pub fn chart_height(&self) -> f64 { self.inner.chart_height }
+    pub fn chart_height(&self) -> f64 {
+        self.inner.chart_height
+    }
 
     #[wasm_bindgen(getter, js_name = barWidth)]
-    pub fn bar_width(&self) -> f64 { self.inner.bar_width() }
+    pub fn bar_width(&self) -> f64 {
+        self.inner.bar_width()
+    }
 
     #[wasm_bindgen(js_name = setSize)]
-    pub fn set_size(&mut self, width: f64, height: f64) { self.inner.set_size(width, height); }
+    pub fn set_size(&mut self, width: f64, height: f64) {
+        self.inner.set_size(width, height);
+    }
 
     #[wasm_bindgen(js_name = setBarCount)]
-    pub fn set_bar_count(&mut self, count: usize) { self.inner.set_bar_count(count); }
+    pub fn set_bar_count(&mut self, count: usize) {
+        self.inner.set_bar_count(count);
+    }
 
     #[wasm_bindgen(js_name = scrollToEnd)]
-    pub fn scroll_to_end(&mut self) { self.inner.scroll_to_end(); }
+    pub fn scroll_to_end(&mut self) {
+        self.inner.scroll_to_end();
+    }
 
     #[wasm_bindgen(js_name = scrollToStart)]
-    pub fn scroll_to_start(&mut self) { self.inner.scroll_to_start(); }
+    pub fn scroll_to_start(&mut self) {
+        self.inner.scroll_to_start();
+    }
 }
 
 // =============================================================================
@@ -1734,25 +1790,43 @@ pub struct JsTheme {
 #[wasm_bindgen]
 impl JsTheme {
     #[wasm_bindgen]
-    pub fn dark() -> Self { Self { inner: Theme::dark() } }
+    pub fn dark() -> Self {
+        Self {
+            inner: Theme::dark(),
+        }
+    }
 
     #[wasm_bindgen]
-    pub fn light() -> Self { Self { inner: Theme::light() } }
+    pub fn light() -> Self {
+        Self {
+            inner: Theme::light(),
+        }
+    }
 
     #[wasm_bindgen(getter, js_name = bgColor)]
-    pub fn bg_color(&self) -> String { self.inner.bg_color.to_string() }
+    pub fn bg_color(&self) -> String {
+        self.inner.bg_color.to_string()
+    }
 
     #[wasm_bindgen(getter, js_name = textColor)]
-    pub fn text_color(&self) -> String { self.inner.text_color.to_string() }
+    pub fn text_color(&self) -> String {
+        self.inner.text_color.to_string()
+    }
 
     #[wasm_bindgen(getter, js_name = gridColor)]
-    pub fn grid_color(&self) -> String { self.inner.grid_color.to_string() }
+    pub fn grid_color(&self) -> String {
+        self.inner.grid_color.to_string()
+    }
 
     #[wasm_bindgen(getter, js_name = candleUp)]
-    pub fn candle_up(&self) -> String { self.inner.candle_up.to_string() }
+    pub fn candle_up(&self) -> String {
+        self.inner.candle_up.to_string()
+    }
 
     #[wasm_bindgen(getter, js_name = candleDown)]
-    pub fn candle_down(&self) -> String { self.inner.candle_down.to_string() }
+    pub fn candle_down(&self) -> String {
+        self.inner.candle_down.to_string()
+    }
 }
 
 // =============================================================================
@@ -1770,12 +1844,16 @@ pub struct JsChartConfig {
 impl JsChartConfig {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
-        Self { inner: RustChartConfig::default() }
+        Self {
+            inner: RustChartConfig::default(),
+        }
     }
 }
 
 impl Default for JsChartConfig {
-    fn default() -> Self { Self::new() }
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 // =============================================================================
