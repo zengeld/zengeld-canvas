@@ -129,6 +129,7 @@ jobs:
     name: Publish to npm
     needs: [build-wasm]
     runs-on: ubuntu-latest
+    environment: npm
     permissions:
       contents: read
       id-token: write  # Required for OIDC
