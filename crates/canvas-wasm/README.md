@@ -2,16 +2,46 @@
 
 **High-performance SVG chart rendering engine for financial data visualization**
 
-[![Crates.io](https://img.shields.io/crates/v/zengeld-canvas.svg)](https://crates.io/crates/zengeld-canvas)
-[![PyPI](https://img.shields.io/pypi/v/zengeld-canvas.svg)](https://pypi.org/project/zengeld-canvas/)
 [![npm](https://img.shields.io/npm/v/zengeld-canvas.svg)](https://www.npmjs.com/package/zengeld-canvas)
 
-WebAssembly bindings for the high-performance zengeld-canvas chart rendering engine. Built in Rust with zero runtime dependencies.
+WebAssembly bindings for the zengeld-canvas chart rendering engine. Built in Rust with zero runtime dependencies.
+
+## Features
+
+- **96 Drawing Primitives** - Fibonacci, Gann, Pitchforks, Elliott Waves, Patterns, Channels, and more
+- **45+ Indicator Presets** - Pre-configured rendering styles for SMA, RSI, MACD, Bollinger, Ichimoku, etc.
+- **12 Series Types** - Candlestick, HeikinAshi, Line, Area, Histogram, Baseline, and more
+- **14 Multi-Chart Layouts** - Grid, split, and custom layouts for dashboards
+- **High Performance** - Native Rust speed via WebAssembly
 
 ## Installation
 
 ```bash
 npm install zengeld-canvas
+```
+
+## Quick Start
+
+```javascript
+import init, { Chart, JsBar } from 'zengeld-canvas';
+
+async function main() {
+  await init();
+
+  // Create chart
+  const chart = new Chart(800, 600);
+  chart.bars(bars);
+  chart.candlesticks();
+  chart.sma(20, "#2196F3");
+
+  // Render to SVG
+  const svg = chart.renderSvg();
+
+  // Use in DOM
+  document.getElementById('chart').innerHTML = svg;
+}
+
+main();
 ```
 
 ## Examples
@@ -25,48 +55,20 @@ npm install zengeld-canvas
     <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/14_multichart_1_3.svg" width="400"/><br/><b>Multi-Chart Layout</b></td>
     <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/19_primitives_channels.svg" width="400"/><br/><b>Channels</b></td>
   </tr>
-  <tr>
-    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/22_primitives_gann.svg" width="400"/><br/><b>Gann Tools</b></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/25_primitives_patterns.svg" width="400"/><br/><b>Chart Patterns</b></td>
-  </tr>
 </table>
 
-## Features
+## Drawing Primitives
 
-- **80+ Drawing Primitives** - Fibonacci, Gann, Pitchforks, Patterns, Elliott Waves, and more
-- **12 Series Types** - Candlestick, Line, Area, Histogram, and more
-- **Platform Agnostic** - `RenderContext` trait for any rendering backend
-- **Zero Dependencies** - Only serde for serialization
-- **High Performance** - Optimized for real-time chart rendering
-
-## Quick Start
-
-```javascript
-import init, { JsBar, JsViewport, JsPriceScale, JsTheme } from 'zengeld-canvas';
-
-async function main() {
-  await init();
-
-  // Create bars
-  const bar = new JsBar(1703721600, 100.0, 105.0, 98.0, 103.0, 1000000);
-  console.log(`Bullish: ${bar.isBullish()}`);
-
-  // Create viewport
-  const viewport = new JsViewport(800.0, 600.0);
-  viewport.firstBar = 0.0;
-  viewport.lastBar = 100.0;
-
-  // Create price scale
-  const priceScale = new JsPriceScale();
-  priceScale.setRange(95.0, 110.0);
-
-  // Use dark theme
-  const theme = JsTheme.dark();
-  console.log(`Background: ${theme.background}`);
-}
-
-main();
-```
+| Category | Count | Examples |
+|----------|-------|----------|
+| Fibonacci | 11 | Retracement, Fan, Arcs, Circles, Channel, Spiral |
+| Lines | 9 | TrendLine, HorizontalLine, Ray, ExtendedLine |
+| Annotations | 11 | Text, Callout, PriceLabel, Flag, Table |
+| Shapes | 10 | Rectangle, Circle, Ellipse, Triangle, Path |
+| Elliott Waves | 5 | Impulse, Correction, Triangle, Combo |
+| Patterns | 6 | XABCD, HeadShoulders, Cypher, ThreeDrives |
+| Gann | 4 | Fan, Box, Square, SquareFixed |
+| And more... | 40 | Channels, Pitchforks, Cycles, Projections |
 
 ## License
 

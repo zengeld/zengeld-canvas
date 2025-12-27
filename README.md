@@ -8,7 +8,7 @@
 
 A platform-agnostic rendering library for financial charts. Built in Rust with zero runtime dependencies, available for Rust, Python, and JavaScript.
 
-## Packages
+## Installation
 
 | Platform | Package | Install |
 |----------|---------|---------|
@@ -35,74 +35,95 @@ A platform-agnostic rendering library for financial charts. Built in Rust with z
 
 ## Features
 
-- **80+ Drawing Primitives** - Fibonacci, Gann, Pitchforks, Patterns, Elliott Waves, and more
-- **12 Series Types** - Candlestick, Line, Area, Histogram, and more
+- **96 Drawing Primitives** - Fibonacci, Gann, Pitchforks, Elliott Waves, Patterns, Channels, and more
+- **45+ Indicator Presets** - Pre-configured rendering styles for SMA, RSI, MACD, Bollinger, Ichimoku, etc.
+- **12 Series Types** - Candlestick, HeikinAshi, Line, Area, Histogram, Baseline, and more
+- **14 Multi-Chart Layouts** - Grid, split, and custom layouts for dashboards
 - **Platform Agnostic** - `RenderContext` trait for any rendering backend
 - **Zero Dependencies** - Only serde for serialization
 - **High Performance** - Optimized for real-time chart rendering
 
-## Workspace Structure
+## Drawing Primitives
 
-```
-zengeld-canvas/
-├── crates/
-│   ├── canvas/       # Core Rust library
-│   ├── canvas-py/    # Python bindings (PyO3)
-│   └── canvas-wasm/  # WASM bindings (wasm-bindgen)
-```
+| Category | Count | Examples |
+|----------|-------|----------|
+| Fibonacci | 11 | Retracement, Fan, Arcs, Circles, Channel, Spiral |
+| Lines | 9 | TrendLine, HorizontalLine, Ray, ExtendedLine |
+| Annotations | 11 | Text, Callout, PriceLabel, Flag, Table |
+| Shapes | 10 | Rectangle, Circle, Ellipse, Triangle, Path |
+| Elliott Waves | 5 | Impulse, Correction, Triangle, Combo |
+| Patterns | 6 | XABCD, HeadShoulders, Cypher, ThreeDrives |
+| Gann | 4 | Fan, Box, Square, SquareFixed |
+| Channels | 4 | Parallel, Regression, Disjoint, FlatTopBottom |
+| Pitchforks | 4 | Standard, Schiff, Modified, Inside |
+| And more... | 32 | Cycles, Projections, Volume, Arrows, Events |
+
+## Indicator Rendering Presets
+
+Pre-configured styles for common technical indicators (you provide the data, we render it):
+
+**Moving Averages:** SMA, EMA, WMA, HMA, DEMA, TEMA, KAMA, ZLEMA
+
+**Momentum:** RSI, Stochastic, MACD, CCI, Williams %R, ROC, TSI, Awesome Oscillator
+
+**Volatility:** Bollinger Bands, Keltner Channel, Donchian, ATR, Envelopes
+
+**Volume:** OBV, A/D Line, CMF, Chaikin Oscillator, Force Index
+
+**Trend:** ADX, Aroon, Vortex, Supertrend, ZigZag, Parabolic SAR, Ichimoku
 
 ## Quick Start
 
 ### Rust
 
 ```rust
-use zengeld_canvas::{Bar, Viewport, Theme};
+use zengeld_canvas::{Chart, Bar};
 
-let bar = Bar {
-    time: 1703721600,
-    open: 100.0, high: 105.0, low: 98.0, close: 103.0,
-    volume: 1_000_000.0,
-};
+// Create chart with builder API
+let svg = Chart::new(800, 600)
+    .bars(&bars)
+    .candlesticks()
+    .sma(20, "#2196F3")
+    .rsi(14)
+    .render_svg();
 
-let viewport = Viewport::new(800.0, 600.0);
-let theme = Theme::dark();
+// Save to file
+std::fs::write("chart.svg", svg)?;
 ```
 
 ### Python
 
 ```python
-from zengeld_canvas import Bar, Viewport, Theme
+from zengeld_canvas import Chart, Bar
 
-bar = Bar(time=1703721600, open=100.0, high=105.0, low=98.0, close=103.0)
-viewport = Viewport(800.0, 600.0)
-theme = Theme.dark()
+# Create bars
+bars = [Bar(time=1703721600, open=100.0, high=105.0, low=98.0, close=103.0)]
+
+# Build chart
+chart = Chart(800, 600)
+chart.bars(bars)
+chart.candlesticks()
+chart.sma(20, "#2196F3")
+
+# Render to SVG
+svg = chart.render_svg()
 ```
 
 ### JavaScript
 
 ```javascript
-import init, { JsBar, JsViewport, JsTheme } from 'zengeld-canvas';
+import init, { Chart, JsBar } from 'zengeld-canvas';
 
 await init();
 
-const bar = new JsBar(1703721600, 100.0, 105.0, 98.0, 103.0, 1000000);
-const viewport = new JsViewport(800.0, 600.0);
-const theme = JsTheme.dark();
-```
+// Create chart
+const chart = new Chart(800, 600);
+chart.bars(bars);
+chart.candlesticks();
+chart.sma(20, "#2196F3");
 
-## Building
-
-```bash
-# Build all crates
-cargo build --workspace
-
-# Build Python wheel
-cd crates/canvas-py
-maturin build --release
-
-# Build WASM
-cd crates/canvas-wasm
-wasm-pack build --target web
+// Render to SVG
+const svg = chart.renderSvg();
 ```
 
 ## License
