@@ -28,9 +28,14 @@ import init, { Chart, JsBar } from 'zengeld-canvas';
 async function main() {
   await init();
 
+  // Create sample OHLCV data
+  const bars = [
+    new JsBar(1703721600n, 100.0, 105.0, 98.0, 103.0, 1000.0)
+  ];
+
   // Create chart
   const chart = new Chart(800, 600);
-  chart.bars(bars);
+  chart.setBars(bars);
   chart.candlesticks();
   chart.sma(20, "#2196F3");
 

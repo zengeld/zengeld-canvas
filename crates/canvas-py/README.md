@@ -26,8 +26,8 @@ pip install zengeld-canvas
 ```python
 from zengeld_canvas import Chart, Bar
 
-# Create bars
-bars = [Bar(time=1703721600, open=100.0, high=105.0, low=98.0, close=103.0)]
+# Create sample OHLCV data
+bars = [Bar(1703721600, 100.0, 105.0, 98.0, 103.0, 1000.0)]
 
 # Build chart
 chart = Chart(800, 600)
