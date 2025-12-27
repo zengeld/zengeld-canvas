@@ -4,10 +4,11 @@ build-backend = "maturin"
 
 [project]
 name = "zengeld-canvas"
-version = "0.1.0"
+version = "0.1.2"
 description = "High-performance SVG chart rendering engine for financial data visualization"
 readme = "README.md"
 license = { text = "MIT OR Apache-2.0" }
+license-files = ["LICENSE-MIT", "LICENSE-APACHE"]
 authors = [{ name = "zengeld" }]
 requires-python = ">=3.8"
 classifiers = [
