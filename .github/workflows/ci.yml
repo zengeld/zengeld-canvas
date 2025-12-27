@@ -28,14 +28,19 @@ jobs:
         with:
           components: rustfmt, clippy
 
+      - name: Setup Python (for pyo3)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - name: Cache cargo
         uses: Swatinem/rust-cache@v2
 
       - name: Check formatting
         run: cargo fmt --all --check
 
-      - name: Clippy (canvas-py and canvas-wasm only)
-        run: cargo clippy -p zengeld-canvas-py -p zengeld-canvas-wasm -- -D warnings
+      - name: Clippy
+        run: cargo clippy --workspace -- -D warnings
 
       - name: Run tests
         run: cargo test --all-features
