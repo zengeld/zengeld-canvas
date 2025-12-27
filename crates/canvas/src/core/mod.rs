@@ -2,7 +2,9 @@
 //!
 //! Foundational types shared across the entire crate:
 //! - `Bar` - OHLCV data structure
-//! - `Theme` - Color palette for dark/light themes
+//! - `Theme` - Legacy color palette (simple)
+//! - `UITheme` - Full theme system (colors, fonts, sizing, effects)
+//! - `RuntimeTheme` - Runtime-modifiable theme with JSON support
 //! - `ChartConfig` - Global configuration system
 //! - Layout constants (scale dimensions, toolbar sizes)
 //! - Utility functions (crisp rendering, color parsing)
@@ -11,6 +13,7 @@ mod color;
 pub mod config;
 mod format;
 mod math;
+pub mod theme;
 mod types;
 
 // Re-export types
@@ -72,4 +75,24 @@ pub use config::{
     PrimitiveConfig,
     TimeScaleConfig,
     WatermarkConfig,
+};
+
+// Re-export theme system
+pub use theme::{
+    // Static theme (compile-time)
+    ChartColors,
+    RuntimeChartColors,
+    RuntimeEffects,
+    RuntimeFonts,
+    RuntimeSeriesColors,
+    RuntimeSizing,
+    // Runtime theme (modifiable, JSON support)
+    RuntimeTheme,
+    RuntimeUIColors,
+    SeriesColors,
+    UIColors,
+    UIEffects,
+    UIFonts,
+    UISizing,
+    UITheme,
 };

@@ -10,7 +10,7 @@ use ::zengeld_canvas::api::{
 };
 use ::zengeld_canvas::core::Bar;
 use ::zengeld_canvas::model::Indicator;
-use ::zengeld_canvas::{Theme, Viewport};
+use ::zengeld_canvas::{RuntimeTheme, Theme, UITheme, Viewport};
 
 // =============================================================================
 // Bar - OHLCV data point
@@ -1581,6 +1581,7 @@ impl PyViewport {
     }
 }
 
+/// Legacy simple theme (for backwards compatibility)
 #[pyclass(name = "Theme")]
 pub struct PyTheme {
     inner: Theme,
@@ -1622,6 +1623,384 @@ impl PyTheme {
     }
 }
 
+// =============================================================================
+// UITheme - Full static theme system
+// =============================================================================
+
+/// Complete UI theme with all styling options (static, compile-time).
+/// Use RuntimeTheme for modifiable themes.
+#[pyclass(name = "UITheme")]
+pub struct PyUITheme {
+    inner: UITheme,
+}
+
+#[pymethods]
+impl PyUITheme {
+    /// Create dark theme (TradingView-like)
+    #[staticmethod]
+    fn dark() -> Self {
+        Self {
+            inner: UITheme::dark(),
+        }
+    }
+
+    /// Create light theme
+    #[staticmethod]
+    fn light() -> Self {
+        Self {
+            inner: UITheme::light(),
+        }
+    }
+
+    /// Create high contrast theme (accessibility)
+    #[staticmethod]
+    fn high_contrast() -> Self {
+        Self {
+            inner: UITheme::high_contrast(),
+        }
+    }
+
+    /// Create cyberpunk/neon theme
+    #[staticmethod]
+    fn cyberpunk() -> Self {
+        Self {
+            inner: UITheme::cyberpunk(),
+        }
+    }
+
+    // === Basic properties ===
+
+    #[getter]
+    fn name(&self) -> &str {
+        self.inner.name
+    }
+
+    // === Chart colors ===
+
+    #[getter]
+    fn background(&self) -> &str {
+        self.inner.chart.background
+    }
+
+    #[getter]
+    fn grid_line(&self) -> &str {
+        self.inner.chart.grid_line
+    }
+
+    #[getter]
+    fn scale_bg(&self) -> &str {
+        self.inner.chart.scale_bg
+    }
+
+    #[getter]
+    fn scale_text(&self) -> &str {
+        self.inner.chart.scale_text
+    }
+
+    #[getter]
+    fn crosshair_line(&self) -> &str {
+        self.inner.chart.crosshair_line
+    }
+
+    // === Series colors ===
+
+    #[getter]
+    fn candle_up_body(&self) -> &str {
+        self.inner.series.candle_up_body
+    }
+
+    #[getter]
+    fn candle_down_body(&self) -> &str {
+        self.inner.series.candle_down_body
+    }
+
+    #[getter]
+    fn line_color(&self) -> &str {
+        self.inner.series.line_color
+    }
+
+    #[getter]
+    fn ma_fast(&self) -> &str {
+        self.inner.series.ma_fast
+    }
+
+    #[getter]
+    fn ma_slow(&self) -> &str {
+        self.inner.series.ma_slow
+    }
+
+    // === UI colors ===
+
+    #[getter]
+    fn toolbar_bg(&self) -> &str {
+        self.inner.colors.toolbar_bg
+    }
+
+    #[getter]
+    fn text_primary(&self) -> &str {
+        self.inner.colors.text_primary
+    }
+
+    #[getter]
+    fn accent(&self) -> &str {
+        self.inner.colors.accent
+    }
+
+    #[getter]
+    fn success(&self) -> &str {
+        self.inner.colors.success
+    }
+
+    #[getter]
+    fn danger(&self) -> &str {
+        self.inner.colors.danger
+    }
+}
+
+// =============================================================================
+// RuntimeTheme - Modifiable theme with JSON support
+// =============================================================================
+
+/// Runtime-modifiable theme with JSON serialization support.
+/// All colors are owned strings that can be modified.
+#[pyclass(name = "RuntimeTheme")]
+pub struct PyRuntimeTheme {
+    inner: RuntimeTheme,
+}
+
+#[pymethods]
+impl PyRuntimeTheme {
+    /// Create from preset name: "dark", "light", "high_contrast", "cyberpunk"
+    #[staticmethod]
+    fn from_preset(name: &str) -> Self {
+        Self {
+            inner: RuntimeTheme::from_preset(name),
+        }
+    }
+
+    /// Create dark theme
+    #[staticmethod]
+    fn dark() -> Self {
+        Self {
+            inner: RuntimeTheme::dark(),
+        }
+    }
+
+    /// Create light theme
+    #[staticmethod]
+    fn light() -> Self {
+        Self {
+            inner: RuntimeTheme::light(),
+        }
+    }
+
+    /// Create high contrast theme
+    #[staticmethod]
+    fn high_contrast() -> Self {
+        Self {
+            inner: RuntimeTheme::high_contrast(),
+        }
+    }
+
+    /// Create cyberpunk theme
+    #[staticmethod]
+    fn cyberpunk() -> Self {
+        Self {
+            inner: RuntimeTheme::cyberpunk(),
+        }
+    }
+
+    /// Deserialize from JSON string
+    #[staticmethod]
+    fn from_json(json: &str) -> Option<Self> {
+        RuntimeTheme::from_json(json).map(|inner| Self { inner })
+    }
+
+    /// Serialize to JSON string
+    fn to_json(&self) -> String {
+        self.inner.to_json()
+    }
+
+    /// Serialize to pretty JSON string
+    fn to_json_pretty(&self) -> String {
+        self.inner.to_json_pretty()
+    }
+
+    /// Get available preset names
+    #[staticmethod]
+    fn presets() -> Vec<&'static str> {
+        RuntimeTheme::PRESETS.to_vec()
+    }
+
+    // === Basic properties ===
+
+    #[getter]
+    fn name(&self) -> &str {
+        &self.inner.name
+    }
+
+    #[setter]
+    fn set_name(&mut self, name: String) {
+        self.inner.name = name;
+    }
+
+    // === Chart colors (getters and setters) ===
+
+    #[getter]
+    fn background(&self) -> &str {
+        &self.inner.chart.background
+    }
+
+    #[setter]
+    fn set_background(&mut self, color: String) {
+        self.inner.chart.background = color;
+    }
+
+    #[getter]
+    fn grid_line(&self) -> &str {
+        &self.inner.chart.grid_line
+    }
+
+    #[setter]
+    fn set_grid_line(&mut self, color: String) {
+        self.inner.chart.grid_line = color;
+    }
+
+    #[getter]
+    fn scale_bg(&self) -> &str {
+        &self.inner.chart.scale_bg
+    }
+
+    #[setter]
+    fn set_scale_bg(&mut self, color: String) {
+        self.inner.chart.scale_bg = color;
+    }
+
+    #[getter]
+    fn scale_text(&self) -> &str {
+        &self.inner.chart.scale_text
+    }
+
+    #[setter]
+    fn set_scale_text(&mut self, color: String) {
+        self.inner.chart.scale_text = color;
+    }
+
+    #[getter]
+    fn crosshair_line(&self) -> &str {
+        &self.inner.chart.crosshair_line
+    }
+
+    #[setter]
+    fn set_crosshair_line(&mut self, color: String) {
+        self.inner.chart.crosshair_line = color;
+    }
+
+    // === Series colors ===
+
+    #[getter]
+    fn candle_up_body(&self) -> &str {
+        &self.inner.series.candle_up_body
+    }
+
+    #[setter]
+    fn set_candle_up_body(&mut self, color: String) {
+        self.inner.series.candle_up_body = color;
+    }
+
+    #[getter]
+    fn candle_down_body(&self) -> &str {
+        &self.inner.series.candle_down_body
+    }
+
+    #[setter]
+    fn set_candle_down_body(&mut self, color: String) {
+        self.inner.series.candle_down_body = color;
+    }
+
+    #[getter]
+    fn line_color(&self) -> &str {
+        &self.inner.series.line_color
+    }
+
+    #[setter]
+    fn set_line_color(&mut self, color: String) {
+        self.inner.series.line_color = color;
+    }
+
+    #[getter]
+    fn ma_fast(&self) -> &str {
+        &self.inner.series.ma_fast
+    }
+
+    #[setter]
+    fn set_ma_fast(&mut self, color: String) {
+        self.inner.series.ma_fast = color;
+    }
+
+    #[getter]
+    fn ma_slow(&self) -> &str {
+        &self.inner.series.ma_slow
+    }
+
+    #[setter]
+    fn set_ma_slow(&mut self, color: String) {
+        self.inner.series.ma_slow = color;
+    }
+
+    // === UI colors ===
+
+    #[getter]
+    fn toolbar_bg(&self) -> &str {
+        &self.inner.colors.toolbar_bg
+    }
+
+    #[setter]
+    fn set_toolbar_bg(&mut self, color: String) {
+        self.inner.colors.toolbar_bg = color;
+    }
+
+    #[getter]
+    fn text_primary(&self) -> &str {
+        &self.inner.colors.text_primary
+    }
+
+    #[setter]
+    fn set_text_primary(&mut self, color: String) {
+        self.inner.colors.text_primary = color;
+    }
+
+    #[getter]
+    fn accent(&self) -> &str {
+        &self.inner.colors.accent
+    }
+
+    #[setter]
+    fn set_accent(&mut self, color: String) {
+        self.inner.colors.accent = color;
+    }
+
+    #[getter]
+    fn success(&self) -> &str {
+        &self.inner.colors.success
+    }
+
+    #[setter]
+    fn set_success(&mut self, color: String) {
+        self.inner.colors.success = color;
+    }
+
+    #[getter]
+    fn danger(&self) -> &str {
+        &self.inner.colors.danger
+    }
+
+    #[setter]
+    fn set_danger(&mut self, color: String) {
+        self.inner.colors.danger = color;
+    }
+}
+
 #[pyclass(name = "ChartConfig")]
 pub struct PyChartConfig {
     #[allow(dead_code)]
@@ -1653,7 +2032,10 @@ fn zengeld_canvas(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<PyBar>()?;
     m.add_class::<PyChart>()?;
     m.add_class::<PyViewport>()?;
-    m.add_class::<PyTheme>()?;
+    // Theme classes
+    m.add_class::<PyTheme>()?; // Legacy simple theme
+    m.add_class::<PyUITheme>()?; // Full static theme
+    m.add_class::<PyRuntimeTheme>()?; // Modifiable theme with JSON
     m.add_class::<PyChartConfig>()?;
     Ok(())
 }

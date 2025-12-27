@@ -110,6 +110,26 @@ pub use core::{
     PriceScaleConfig, PrimitiveConfig, TimeScaleConfig, WatermarkConfig,
 };
 
+// Full theme system
+pub use core::{
+    // Static theme (compile-time, &'static str)
+    ChartColors,
+    // Runtime theme (modifiable, owned String, JSON support)
+    RuntimeChartColors,
+    RuntimeEffects,
+    RuntimeFonts,
+    RuntimeSeriesColors,
+    RuntimeSizing,
+    RuntimeTheme,
+    RuntimeUIColors,
+    SeriesColors,
+    UIColors,
+    UIEffects,
+    UIFonts,
+    UISizing,
+    UITheme,
+};
+
 // Coordinate systems
 pub use coords::{
     DAY, HOUR, MINUTE, NICE_MULTIPLIERS, PriceScale, PriceScaleMode, TickMarkWeight, TimeScale,

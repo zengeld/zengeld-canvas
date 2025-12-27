@@ -29,7 +29,7 @@ use zengeld_canvas::api::{
 };
 use zengeld_canvas::core::Bar;
 use zengeld_canvas::model::Indicator;
-use zengeld_canvas::{Theme, Viewport};
+use zengeld_canvas::{RuntimeTheme, Theme, UITheme, Viewport};
 
 // =============================================================================
 // JsBar - OHLCV data point
@@ -1778,10 +1778,10 @@ impl JsViewport {
 }
 
 // =============================================================================
-// JsTheme - Color schemes
+// JsTheme - Legacy simple theme (for backwards compatibility)
 // =============================================================================
 
-/// Chart theme with predefined color schemes.
+/// Legacy simple theme with basic color properties.
 #[wasm_bindgen]
 pub struct JsTheme {
     inner: Theme,
@@ -1826,6 +1826,389 @@ impl JsTheme {
     #[wasm_bindgen(getter, js_name = candleDown)]
     pub fn candle_down(&self) -> String {
         self.inner.candle_down.to_string()
+    }
+}
+
+// =============================================================================
+// JsUITheme - Full static theme system
+// =============================================================================
+
+/// Complete UI theme with all styling options (static, compile-time).
+/// Use JsRuntimeTheme for modifiable themes.
+#[wasm_bindgen]
+pub struct JsUITheme {
+    inner: UITheme,
+}
+
+#[wasm_bindgen]
+impl JsUITheme {
+    /// Create dark theme (TradingView-like)
+    #[wasm_bindgen]
+    pub fn dark() -> Self {
+        Self {
+            inner: UITheme::dark(),
+        }
+    }
+
+    /// Create light theme
+    #[wasm_bindgen]
+    pub fn light() -> Self {
+        Self {
+            inner: UITheme::light(),
+        }
+    }
+
+    /// Create high contrast theme (accessibility)
+    #[wasm_bindgen(js_name = highContrast)]
+    pub fn high_contrast() -> Self {
+        Self {
+            inner: UITheme::high_contrast(),
+        }
+    }
+
+    /// Create cyberpunk/neon theme
+    #[wasm_bindgen]
+    pub fn cyberpunk() -> Self {
+        Self {
+            inner: UITheme::cyberpunk(),
+        }
+    }
+
+    // === Basic properties ===
+
+    #[wasm_bindgen(getter)]
+    pub fn name(&self) -> String {
+        self.inner.name.to_string()
+    }
+
+    // === Chart colors ===
+
+    #[wasm_bindgen(getter)]
+    pub fn background(&self) -> String {
+        self.inner.chart.background.to_string()
+    }
+
+    #[wasm_bindgen(getter, js_name = gridLine)]
+    pub fn grid_line(&self) -> String {
+        self.inner.chart.grid_line.to_string()
+    }
+
+    #[wasm_bindgen(getter, js_name = scaleBg)]
+    pub fn scale_bg(&self) -> String {
+        self.inner.chart.scale_bg.to_string()
+    }
+
+    #[wasm_bindgen(getter, js_name = scaleText)]
+    pub fn scale_text(&self) -> String {
+        self.inner.chart.scale_text.to_string()
+    }
+
+    #[wasm_bindgen(getter, js_name = crosshairLine)]
+    pub fn crosshair_line(&self) -> String {
+        self.inner.chart.crosshair_line.to_string()
+    }
+
+    // === Series colors ===
+
+    #[wasm_bindgen(getter, js_name = candleUpBody)]
+    pub fn candle_up_body(&self) -> String {
+        self.inner.series.candle_up_body.to_string()
+    }
+
+    #[wasm_bindgen(getter, js_name = candleDownBody)]
+    pub fn candle_down_body(&self) -> String {
+        self.inner.series.candle_down_body.to_string()
+    }
+
+    #[wasm_bindgen(getter, js_name = lineColor)]
+    pub fn line_color(&self) -> String {
+        self.inner.series.line_color.to_string()
+    }
+
+    #[wasm_bindgen(getter, js_name = maFast)]
+    pub fn ma_fast(&self) -> String {
+        self.inner.series.ma_fast.to_string()
+    }
+
+    #[wasm_bindgen(getter, js_name = maSlow)]
+    pub fn ma_slow(&self) -> String {
+        self.inner.series.ma_slow.to_string()
+    }
+
+    // === UI colors ===
+
+    #[wasm_bindgen(getter, js_name = toolbarBg)]
+    pub fn toolbar_bg(&self) -> String {
+        self.inner.colors.toolbar_bg.to_string()
+    }
+
+    #[wasm_bindgen(getter, js_name = textPrimary)]
+    pub fn text_primary(&self) -> String {
+        self.inner.colors.text_primary.to_string()
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn accent(&self) -> String {
+        self.inner.colors.accent.to_string()
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn success(&self) -> String {
+        self.inner.colors.success.to_string()
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn danger(&self) -> String {
+        self.inner.colors.danger.to_string()
+    }
+}
+
+// =============================================================================
+// JsRuntimeTheme - Modifiable theme with JSON support
+// =============================================================================
+
+/// Runtime-modifiable theme with JSON serialization support.
+/// All colors are owned strings that can be modified.
+#[wasm_bindgen]
+pub struct JsRuntimeTheme {
+    inner: RuntimeTheme,
+}
+
+#[wasm_bindgen]
+impl JsRuntimeTheme {
+    /// Create from preset name: "dark", "light", "high_contrast", "cyberpunk"
+    #[wasm_bindgen(js_name = fromPreset)]
+    pub fn from_preset(name: &str) -> Self {
+        Self {
+            inner: RuntimeTheme::from_preset(name),
+        }
+    }
+
+    /// Create dark theme
+    #[wasm_bindgen]
+    pub fn dark() -> Self {
+        Self {
+            inner: RuntimeTheme::dark(),
+        }
+    }
+
+    /// Create light theme
+    #[wasm_bindgen]
+    pub fn light() -> Self {
+        Self {
+            inner: RuntimeTheme::light(),
+        }
+    }
+
+    /// Create high contrast theme
+    #[wasm_bindgen(js_name = highContrast)]
+    pub fn high_contrast() -> Self {
+        Self {
+            inner: RuntimeTheme::high_contrast(),
+        }
+    }
+
+    /// Create cyberpunk theme
+    #[wasm_bindgen]
+    pub fn cyberpunk() -> Self {
+        Self {
+            inner: RuntimeTheme::cyberpunk(),
+        }
+    }
+
+    /// Deserialize from JSON string
+    #[wasm_bindgen(js_name = fromJson)]
+    pub fn from_json(json: &str) -> Option<JsRuntimeTheme> {
+        RuntimeTheme::from_json(json).map(|inner| Self { inner })
+    }
+
+    /// Serialize to JSON string
+    #[wasm_bindgen(js_name = toJson)]
+    pub fn to_json(&self) -> String {
+        self.inner.to_json()
+    }
+
+    /// Serialize to pretty JSON string
+    #[wasm_bindgen(js_name = toJsonPretty)]
+    pub fn to_json_pretty(&self) -> String {
+        self.inner.to_json_pretty()
+    }
+
+    /// Get available preset names
+    #[wasm_bindgen]
+    pub fn presets() -> Vec<String> {
+        RuntimeTheme::PRESETS
+            .iter()
+            .map(|s| s.to_string())
+            .collect()
+    }
+
+    // === Basic properties ===
+
+    #[wasm_bindgen(getter)]
+    pub fn name(&self) -> String {
+        self.inner.name.clone()
+    }
+
+    #[wasm_bindgen(setter)]
+    pub fn set_name(&mut self, name: String) {
+        self.inner.name = name;
+    }
+
+    // === Chart colors (getters and setters) ===
+
+    #[wasm_bindgen(getter)]
+    pub fn background(&self) -> String {
+        self.inner.chart.background.clone()
+    }
+
+    #[wasm_bindgen(setter)]
+    pub fn set_background(&mut self, color: String) {
+        self.inner.chart.background = color;
+    }
+
+    #[wasm_bindgen(getter, js_name = gridLine)]
+    pub fn grid_line(&self) -> String {
+        self.inner.chart.grid_line.clone()
+    }
+
+    #[wasm_bindgen(setter, js_name = gridLine)]
+    pub fn set_grid_line(&mut self, color: String) {
+        self.inner.chart.grid_line = color;
+    }
+
+    #[wasm_bindgen(getter, js_name = scaleBg)]
+    pub fn scale_bg(&self) -> String {
+        self.inner.chart.scale_bg.clone()
+    }
+
+    #[wasm_bindgen(setter, js_name = scaleBg)]
+    pub fn set_scale_bg(&mut self, color: String) {
+        self.inner.chart.scale_bg = color;
+    }
+
+    #[wasm_bindgen(getter, js_name = scaleText)]
+    pub fn scale_text(&self) -> String {
+        self.inner.chart.scale_text.clone()
+    }
+
+    #[wasm_bindgen(setter, js_name = scaleText)]
+    pub fn set_scale_text(&mut self, color: String) {
+        self.inner.chart.scale_text = color;
+    }
+
+    #[wasm_bindgen(getter, js_name = crosshairLine)]
+    pub fn crosshair_line(&self) -> String {
+        self.inner.chart.crosshair_line.clone()
+    }
+
+    #[wasm_bindgen(setter, js_name = crosshairLine)]
+    pub fn set_crosshair_line(&mut self, color: String) {
+        self.inner.chart.crosshair_line = color;
+    }
+
+    // === Series colors ===
+
+    #[wasm_bindgen(getter, js_name = candleUpBody)]
+    pub fn candle_up_body(&self) -> String {
+        self.inner.series.candle_up_body.clone()
+    }
+
+    #[wasm_bindgen(setter, js_name = candleUpBody)]
+    pub fn set_candle_up_body(&mut self, color: String) {
+        self.inner.series.candle_up_body = color;
+    }
+
+    #[wasm_bindgen(getter, js_name = candleDownBody)]
+    pub fn candle_down_body(&self) -> String {
+        self.inner.series.candle_down_body.clone()
+    }
+
+    #[wasm_bindgen(setter, js_name = candleDownBody)]
+    pub fn set_candle_down_body(&mut self, color: String) {
+        self.inner.series.candle_down_body = color;
+    }
+
+    #[wasm_bindgen(getter, js_name = lineColor)]
+    pub fn line_color(&self) -> String {
+        self.inner.series.line_color.clone()
+    }
+
+    #[wasm_bindgen(setter, js_name = lineColor)]
+    pub fn set_line_color(&mut self, color: String) {
+        self.inner.series.line_color = color;
+    }
+
+    #[wasm_bindgen(getter, js_name = maFast)]
+    pub fn ma_fast(&self) -> String {
+        self.inner.series.ma_fast.clone()
+    }
+
+    #[wasm_bindgen(setter, js_name = maFast)]
+    pub fn set_ma_fast(&mut self, color: String) {
+        self.inner.series.ma_fast = color;
+    }
+
+    #[wasm_bindgen(getter, js_name = maSlow)]
+    pub fn ma_slow(&self) -> String {
+        self.inner.series.ma_slow.clone()
+    }
+
+    #[wasm_bindgen(setter, js_name = maSlow)]
+    pub fn set_ma_slow(&mut self, color: String) {
+        self.inner.series.ma_slow = color;
+    }
+
+    // === UI colors ===
+
+    #[wasm_bindgen(getter, js_name = toolbarBg)]
+    pub fn toolbar_bg(&self) -> String {
+        self.inner.colors.toolbar_bg.clone()
+    }
+
+    #[wasm_bindgen(setter, js_name = toolbarBg)]
+    pub fn set_toolbar_bg(&mut self, color: String) {
+        self.inner.colors.toolbar_bg = color;
+    }
+
+    #[wasm_bindgen(getter, js_name = textPrimary)]
+    pub fn text_primary(&self) -> String {
+        self.inner.colors.text_primary.clone()
+    }
+
+    #[wasm_bindgen(setter, js_name = textPrimary)]
+    pub fn set_text_primary(&mut self, color: String) {
+        self.inner.colors.text_primary = color;
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn accent(&self) -> String {
+        self.inner.colors.accent.clone()
+    }
+
+    #[wasm_bindgen(setter)]
+    pub fn set_accent(&mut self, color: String) {
+        self.inner.colors.accent = color;
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn success(&self) -> String {
+        self.inner.colors.success.clone()
+    }
+
+    #[wasm_bindgen(setter)]
+    pub fn set_success(&mut self, color: String) {
+        self.inner.colors.success = color;
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn danger(&self) -> String {
+        self.inner.colors.danger.clone()
+    }
+
+    #[wasm_bindgen(setter)]
+    pub fn set_danger(&mut self, color: String) {
+        self.inner.colors.danger = color;
     }
 }
 
