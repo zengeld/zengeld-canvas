@@ -1,6 +1,6 @@
 {
   "name": "zengeld-canvas",
-  "version": "0.1.0",
+  "version": "0.1.9",
   "description": "High-performance SVG chart rendering engine for financial data visualization",
   "main": "pkg/zengeld_canvas.js",
   "types": "pkg/zengeld_canvas.d.ts",

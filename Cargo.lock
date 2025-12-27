@@ -311,7 +311,7 @@ dependencies = [
 
 [[package]]
 name = "zengeld-canvas"
-version = "0.1.8"
+version = "0.1.9"
 dependencies = [
  "serde",
  "serde_json",
@@ -319,7 +319,7 @@ dependencies = [
 
 [[package]]
 name = "zengeld-canvas-py"
-version = "0.1.8"
+version = "0.1.9"
 dependencies = [
  "pyo3",
  "zengeld-canvas",
@@ -327,7 +327,7 @@ dependencies = [
 
 [[package]]
 name = "zengeld-canvas-wasm"
-version = "0.1.8"
+version = "0.1.9"
 dependencies = [
  "js-sys",
  "serde",
