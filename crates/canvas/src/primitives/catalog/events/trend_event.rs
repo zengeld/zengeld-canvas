@@ -46,7 +46,6 @@ pub enum TrendEventType {
     Custom,
 }
 
-
 impl TrendEventType {
     pub fn as_str(&self) -> &'static str {
         match self {

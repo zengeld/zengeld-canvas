@@ -46,8 +46,7 @@ impl Default for GridLineOptions {
 // =============================================================================
 
 /// Complete grid configuration
-#[derive(Clone, Debug, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Clone, Debug, Serialize, Deserialize, Default)]
 pub struct GridOptions {
     /// Vertical lines (time axis)
     #[serde(default)]
@@ -57,7 +56,6 @@ pub struct GridOptions {
     #[serde(default)]
     pub horz_lines: GridLineOptions,
 }
-
 
 #[cfg(test)]
 mod tests {

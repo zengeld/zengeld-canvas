@@ -62,7 +62,6 @@ fn default_overlay_bottom_height() -> f64 {
     0.2
 }
 
-
 impl IndicatorPlacement {
     pub fn overlay() -> Self {
         Self::Overlay
@@ -115,7 +114,6 @@ pub enum IndicatorRange {
     /// Same as price (for overlays)
     Price,
 }
-
 
 impl IndicatorRange {
     pub fn auto() -> Self {

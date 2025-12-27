@@ -403,9 +403,7 @@ impl MarkerManager {
 
     /// Find marker by ID
     pub fn find_by_id(&self, id: &str) -> Option<&Marker> {
-        self.markers
-            .iter()
-            .find(|m| m.id.as_deref() == Some(id))
+        self.markers.iter().find(|m| m.id.as_deref() == Some(id))
     }
 
     /// Remove marker by ID

@@ -40,7 +40,6 @@ pub enum VolumeEventType {
     Custom,
 }
 
-
 impl VolumeEventType {
     pub fn as_str(&self) -> &'static str {
         match self {

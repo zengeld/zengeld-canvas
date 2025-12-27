@@ -123,8 +123,10 @@ fn render_indicator_levels(
 }
 
 /// Render a single indicator vector
-fn render_indicator_vector<F1, F2>(batch: &mut RenderBatch, params: RenderIndicatorVectorParams<'_, F1, F2>)
-where
+fn render_indicator_vector<F1, F2>(
+    batch: &mut RenderBatch,
+    params: RenderIndicatorVectorParams<'_, F1, F2>,
+) where
     F1: Fn(usize) -> f64 + Copy,
     F2: Fn(f64) -> f64 + Copy,
 {

@@ -63,10 +63,7 @@ impl PrimitiveRegistry {
         let kind = metadata.kind;
 
         self.primitives.insert(type_id, metadata);
-        self.by_kind
-            .entry(kind)
-            .or_default()
-            .push(type_id);
+        self.by_kind.entry(kind).or_default().push(type_id);
     }
 
     /// Get metadata for a primitive type

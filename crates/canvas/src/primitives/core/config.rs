@@ -654,8 +654,7 @@ pub struct SettingsTemplate {
 }
 
 /// Style portion of a template
-#[derive(Clone, Debug, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Clone, Debug, Serialize, Deserialize, Default)]
 pub struct TemplateStyle {
     /// Main color
     pub color: Option<String>,
@@ -672,7 +671,6 @@ pub struct TemplateStyle {
     /// Show prices
     pub show_prices: Option<bool>,
 }
-
 
 impl SettingsTemplate {
     /// Create a new template with given name and type

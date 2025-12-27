@@ -245,7 +245,6 @@ impl PriceScale {
         // At 12px font, roughly 7px per char, so 55/7 ≈ 8 chars max
         // At 9px font, roughly 5px per char, so 55/5 ≈ 11 chars max
 
-
         match max_len {
             0..=5 => PRICE_SCALE_FONT_SIZE_MAX, // 13px - short labels
             6..=7 => 12.0,                      // 12px - medium labels

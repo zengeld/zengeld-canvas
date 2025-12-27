@@ -793,7 +793,7 @@ impl<'a> ChartRenderer<'a> {
             width,
             pane_idx,
         } = params;
-        
+
         // Subpane background
         let subpane_bg =
             Color::from_css(&self.config.theme.background).unwrap_or(Color::rgb(19, 23, 34));

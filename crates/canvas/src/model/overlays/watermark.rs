@@ -20,7 +20,6 @@ pub enum HorzAlign {
     Right,
 }
 
-
 /// Vertical alignment of watermark
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
@@ -31,7 +30,6 @@ pub enum VertAlign {
     Center,
     Bottom,
 }
-
 
 /// Font style for watermark text
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -45,7 +43,6 @@ pub enum FontStyle {
     #[serde(rename = "bold italic")]
     BoldItalic,
 }
-
 
 // =============================================================================
 // Watermark Line

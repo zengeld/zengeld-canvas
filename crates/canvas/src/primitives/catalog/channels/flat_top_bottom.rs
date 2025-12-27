@@ -10,8 +10,7 @@ use super::super::{
 use serde::{Deserialize, Serialize};
 
 /// Type of flat line
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize, Default)]
 pub enum FlatType {
     /// Flat line on top (descending triangle)
     #[default]
@@ -19,7 +18,6 @@ pub enum FlatType {
     /// Flat line on bottom (ascending triangle)
     Bottom,
 }
-
 
 /// Flat Top/Bottom - channel with one horizontal line
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -168,11 +166,7 @@ impl Primitive for FlatTopBottom {
         // Fill if enabled
         if self.fill {
             let alpha_hex = (self.fill_opacity * 255.0) as u8;
-            let fill_color = format!(
-                "{}{:02x}",
-                &self.data.color.stroke[..7],
-                alpha_hex
-            );
+            let fill_color = format!("{}{:02x}", &self.data.color.stroke[..7], alpha_hex);
             ctx.set_fill_color(&fill_color);
             ctx.begin_path();
             ctx.move_to(x1, y1);

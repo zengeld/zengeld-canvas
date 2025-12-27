@@ -17,12 +17,11 @@ use serde::{Deserialize, Serialize};
 /// - Markers: General purpose markers (target, flag, star, etc.)
 /// - Emotions: Emotional/sentiment indicators
 /// - Arrows: Directional indicators
-#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize, Default)]
 pub enum EmojiType {
     // === Signals (Trading) ===
     #[default]
-    Target,    // Price target
+    Target, // Price target
     Flag,      // Flag marker
     Check,     // Confirmed/done
     Cross,     // Rejected/stop
@@ -368,7 +367,6 @@ impl EmojiType {
         }
     }
 }
-
 
 /// Emoji primitive with 5 data-coordinate anchor points
 ///
@@ -887,8 +885,18 @@ impl Emoji {
                 // Eyes (hollow)
                 ctx.set_fill_color("#000000");
                 ctx.begin_path();
-                ctx.ellipse(EllipseParams::full(cx - w * 0.25, cy - h * 0.2, w * 0.15, h * 0.15));
-                ctx.ellipse(EllipseParams::full(cx + w * 0.25, cy - h * 0.2, w * 0.15, h * 0.15));
+                ctx.ellipse(EllipseParams::full(
+                    cx - w * 0.25,
+                    cy - h * 0.2,
+                    w * 0.15,
+                    h * 0.15,
+                ));
+                ctx.ellipse(EllipseParams::full(
+                    cx + w * 0.25,
+                    cy - h * 0.2,
+                    w * 0.15,
+                    h * 0.15,
+                ));
                 ctx.fill();
                 // Jaw
                 ctx.set_fill_color(color);
@@ -1003,8 +1011,18 @@ impl Emoji {
                 // Eyes
                 ctx.set_fill_color("#FFFFFF");
                 ctx.begin_path();
-                ctx.ellipse(EllipseParams::full(cx - w * 0.2, cy + h * 0.1, w * 0.1, h * 0.1));
-                ctx.ellipse(EllipseParams::full(cx + w * 0.2, cy + h * 0.1, w * 0.1, h * 0.1));
+                ctx.ellipse(EllipseParams::full(
+                    cx - w * 0.2,
+                    cy + h * 0.1,
+                    w * 0.1,
+                    h * 0.1,
+                ));
+                ctx.ellipse(EllipseParams::full(
+                    cx + w * 0.2,
+                    cy + h * 0.1,
+                    w * 0.1,
+                    h * 0.1,
+                ));
                 ctx.fill();
                 ctx.set_fill_color(color);
             }
@@ -1017,20 +1035,50 @@ impl Emoji {
                 ctx.fill();
                 // Eye bumps (green)
                 ctx.begin_path();
-                ctx.ellipse(EllipseParams::full(cx - w * 0.4, cy - h * 0.3, w * 0.35, h * 0.3));
-                ctx.ellipse(EllipseParams::full(cx + w * 0.4, cy - h * 0.3, w * 0.35, h * 0.3));
+                ctx.ellipse(EllipseParams::full(
+                    cx - w * 0.4,
+                    cy - h * 0.3,
+                    w * 0.35,
+                    h * 0.3,
+                ));
+                ctx.ellipse(EllipseParams::full(
+                    cx + w * 0.4,
+                    cy - h * 0.3,
+                    w * 0.35,
+                    h * 0.3,
+                ));
                 ctx.fill();
                 // Eye whites
                 ctx.set_fill_color("#FFFFFF");
                 ctx.begin_path();
-                ctx.ellipse(EllipseParams::full(cx - w * 0.4, cy - h * 0.3, w * 0.25, h * 0.2));
-                ctx.ellipse(EllipseParams::full(cx + w * 0.4, cy - h * 0.3, w * 0.25, h * 0.2));
+                ctx.ellipse(EllipseParams::full(
+                    cx - w * 0.4,
+                    cy - h * 0.3,
+                    w * 0.25,
+                    h * 0.2,
+                ));
+                ctx.ellipse(EllipseParams::full(
+                    cx + w * 0.4,
+                    cy - h * 0.3,
+                    w * 0.25,
+                    h * 0.2,
+                ));
                 ctx.fill();
                 // Pupils
                 ctx.set_fill_color("#000000");
                 ctx.begin_path();
-                ctx.ellipse(EllipseParams::full(cx - w * 0.35, cy - h * 0.3, w * 0.1, h * 0.1));
-                ctx.ellipse(EllipseParams::full(cx + w * 0.35, cy - h * 0.3, w * 0.1, h * 0.1));
+                ctx.ellipse(EllipseParams::full(
+                    cx - w * 0.35,
+                    cy - h * 0.3,
+                    w * 0.1,
+                    h * 0.1,
+                ));
+                ctx.ellipse(EllipseParams::full(
+                    cx + w * 0.35,
+                    cy - h * 0.3,
+                    w * 0.1,
+                    h * 0.1,
+                ));
                 ctx.fill();
                 // Sad/smug mouth
                 ctx.set_stroke_color("#4a6b1a");
@@ -1042,8 +1090,18 @@ impl Emoji {
                 // Blush cheeks
                 ctx.set_fill_color("#ff9999");
                 ctx.begin_path();
-                ctx.ellipse(EllipseParams::full(cx - w * 0.65, cy + h * 0.15, w * 0.15, h * 0.1));
-                ctx.ellipse(EllipseParams::full(cx + w * 0.65, cy + h * 0.15, w * 0.15, h * 0.1));
+                ctx.ellipse(EllipseParams::full(
+                    cx - w * 0.65,
+                    cy + h * 0.15,
+                    w * 0.15,
+                    h * 0.1,
+                ));
+                ctx.ellipse(EllipseParams::full(
+                    cx + w * 0.65,
+                    cy + h * 0.15,
+                    w * 0.15,
+                    h * 0.1,
+                ));
                 ctx.fill();
                 // Reset color
                 ctx.set_fill_color(color);
@@ -1084,20 +1142,50 @@ impl Emoji {
                 // Big bulging eyes (white)
                 ctx.set_fill_color("#FFFFFF");
                 ctx.begin_path();
-                ctx.ellipse(EllipseParams::full(cx - w * 0.32, cy - h * 0.05, w * 0.38, h * 0.38));
-                ctx.ellipse(EllipseParams::full(cx + w * 0.32, cy - h * 0.05, w * 0.38, h * 0.38));
+                ctx.ellipse(EllipseParams::full(
+                    cx - w * 0.32,
+                    cy - h * 0.05,
+                    w * 0.38,
+                    h * 0.38,
+                ));
+                ctx.ellipse(EllipseParams::full(
+                    cx + w * 0.32,
+                    cy - h * 0.05,
+                    w * 0.38,
+                    h * 0.38,
+                ));
                 ctx.fill();
                 // Green eyelids (droopy sad look)
                 ctx.set_fill_color("#629632");
                 ctx.begin_path();
-                ctx.ellipse(EllipseParams::full(cx - w * 0.32, cy - h * 0.25, w * 0.4, h * 0.22));
-                ctx.ellipse(EllipseParams::full(cx + w * 0.32, cy - h * 0.25, w * 0.4, h * 0.22));
+                ctx.ellipse(EllipseParams::full(
+                    cx - w * 0.32,
+                    cy - h * 0.25,
+                    w * 0.4,
+                    h * 0.22,
+                ));
+                ctx.ellipse(EllipseParams::full(
+                    cx + w * 0.32,
+                    cy - h * 0.25,
+                    w * 0.4,
+                    h * 0.22,
+                ));
                 ctx.fill();
                 // Pupils
                 ctx.set_fill_color("#000000");
                 ctx.begin_path();
-                ctx.ellipse(EllipseParams::full(cx - w * 0.22, cy + h * 0.02, w * 0.14, h * 0.18));
-                ctx.ellipse(EllipseParams::full(cx + w * 0.22, cy + h * 0.02, w * 0.14, h * 0.18));
+                ctx.ellipse(EllipseParams::full(
+                    cx - w * 0.22,
+                    cy + h * 0.02,
+                    w * 0.14,
+                    h * 0.18,
+                ));
+                ctx.ellipse(EllipseParams::full(
+                    cx + w * 0.22,
+                    cy + h * 0.02,
+                    w * 0.14,
+                    h * 0.18,
+                ));
                 ctx.fill();
                 // Wide frown/mouth
                 ctx.set_fill_color("#4a7a2a");

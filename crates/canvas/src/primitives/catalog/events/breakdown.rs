@@ -32,7 +32,6 @@ pub enum BreakdownType {
     Custom,
 }
 
-
 impl BreakdownType {
     pub fn as_str(&self) -> &'static str {
         match self {

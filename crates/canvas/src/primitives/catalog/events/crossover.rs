@@ -28,7 +28,6 @@ pub enum CrossoverType {
     Custom,
 }
 
-
 impl CrossoverType {
     pub fn as_str(&self) -> &'static str {
         match self {
@@ -66,7 +65,6 @@ pub enum CrossoverDirection {
     /// Bearish crossover (fast crosses below slow)
     Bearish,
 }
-
 
 impl CrossoverDirection {
     pub fn default_color(&self) -> &'static str {

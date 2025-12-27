@@ -134,11 +134,7 @@ impl Primitive for Ellipse {
         // Fill if enabled
         if self.fill {
             let alpha_hex = (self.fill_opacity * 255.0) as u8;
-            let fill_color = format!(
-                "{}{:02x}",
-                &self.data.color.stroke[..7],
-                alpha_hex
-            );
+            let fill_color = format!("{}{:02x}", &self.data.color.stroke[..7], alpha_hex);
             ctx.set_fill_color(&fill_color);
             ctx.ellipse(EllipseParams::full(cx, cy, rx, ry));
             ctx.fill();

@@ -25,13 +25,24 @@ pub struct EllipseParams {
 impl EllipseParams {
     /// Create new ellipse parameters
     pub fn new(cx: f64, cy: f64, rx: f64, ry: f64, rotation: f64, start: f64, end: f64) -> Self {
-        Self { cx, cy, rx, ry, rotation, start, end }
+        Self {
+            cx,
+            cy,
+            rx,
+            ry,
+            rotation,
+            start,
+            end,
+        }
     }
 
     /// Create a full ellipse (0 to 2*PI)
     pub fn full(cx: f64, cy: f64, rx: f64, ry: f64) -> Self {
         Self {
-            cx, cy, rx, ry,
+            cx,
+            cy,
+            rx,
+            ry,
             rotation: 0.0,
             start: 0.0,
             end: std::f64::consts::TAU,

@@ -6,8 +6,7 @@ use super::super::{
 };
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Copy, Debug, Serialize, Deserialize, PartialEq)]
-#[derive(Default)]
+#[derive(Clone, Copy, Debug, Serialize, Deserialize, PartialEq, Default)]
 pub enum ArrowDirection {
     #[default]
     Up,

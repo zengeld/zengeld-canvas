@@ -170,7 +170,15 @@ impl Primitive for FibArcs {
                 // Semi-ellipse facing away from point 1
                 let start_angle = baseline_angle - PI / 2.0;
                 let end_angle = baseline_angle + PI / 2.0;
-                ctx.ellipse(EllipseParams::new(x2, y2, rx, ry, 0.0, start_angle, end_angle));
+                ctx.ellipse(EllipseParams::new(
+                    x2,
+                    y2,
+                    rx,
+                    ry,
+                    0.0,
+                    start_angle,
+                    end_angle,
+                ));
             }
             ctx.stroke();
         }

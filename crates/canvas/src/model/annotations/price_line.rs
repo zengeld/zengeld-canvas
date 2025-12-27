@@ -27,7 +27,6 @@ pub enum LineStyle {
     SparseDotted = 4,
 }
 
-
 impl LineStyle {
     /// Get the Canvas2D dash pattern for this style
     ///

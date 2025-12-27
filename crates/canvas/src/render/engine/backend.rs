@@ -515,7 +515,12 @@ pub trait RenderBackend {
         let body_top = params.open_y.min(params.close_y);
         let body_height = (params.open_y - params.close_y).abs().max(1.0);
         self.fill_rect(
-            Rect::new(params.x - params.width / 2.0, body_top, params.width, body_height),
+            Rect::new(
+                params.x - params.width / 2.0,
+                body_top,
+                params.width,
+                body_height,
+            ),
             params.body_color,
         );
     }

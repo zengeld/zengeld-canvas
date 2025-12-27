@@ -8,14 +8,12 @@ use std::collections::HashMap;
 use std::str::FromStr;
 
 /// Trade direction
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize, Default)]
 pub enum TradeDirection {
     #[default]
     Long,
     Short,
 }
-
 
 impl TradeDirection {
     pub fn as_str(&self) -> &'static str {
@@ -341,15 +339,18 @@ mod tests {
 
     #[test]
     fn test_trade_serialization() {
-        let trade = Trade::new(1, TradeConfig {
-            direction: TradeDirection::Long,
-            entry_bar: 100.0,
-            entry_price: 50000.0,
-            exit_bar: 110.0,
-            exit_price: 51000.0,
-            pnl: 1000.0,
-            strategy_tag: "test".to_string(),
-        });
+        let trade = Trade::new(
+            1,
+            TradeConfig {
+                direction: TradeDirection::Long,
+                entry_bar: 100.0,
+                entry_price: 50000.0,
+                exit_bar: 110.0,
+                exit_price: 51000.0,
+                pnl: 1000.0,
+                strategy_tag: "test".to_string(),
+            },
+        );
         let json = trade.to_json();
         let restored = Trade::from_json(&json).unwrap();
         assert_eq!(restored.pnl, 1000.0);

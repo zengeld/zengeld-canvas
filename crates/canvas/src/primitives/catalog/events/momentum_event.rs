@@ -40,7 +40,6 @@ pub enum MomentumEventType {
     Custom,
 }
 
-
 impl MomentumEventType {
     pub fn as_str(&self) -> &'static str {
         match self {

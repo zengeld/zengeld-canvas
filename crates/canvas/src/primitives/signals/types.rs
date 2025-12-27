@@ -10,8 +10,7 @@ use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 
 /// Signal type for strategy markers
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize, Default)]
 pub enum SignalType {
     /// Buy signal (bullish)
     Buy,
@@ -29,7 +28,6 @@ pub enum SignalType {
     #[default]
     Custom,
 }
-
 
 impl SignalType {
     pub fn as_str(&self) -> &'static str {

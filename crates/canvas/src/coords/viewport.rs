@@ -118,7 +118,12 @@ impl Viewport {
         let mut min = f64::INFINITY;
         let mut max = f64::NEG_INFINITY;
 
-        for (i, bar) in bars.iter().take(end.min(bars.len())).skip(start).enumerate() {
+        for (i, bar) in bars
+            .iter()
+            .take(end.min(bars.len()))
+            .skip(start)
+            .enumerate()
+        {
             let bar_idx = start + i;
             min = min.min(bar.low);
             max = max.max(bar.high);

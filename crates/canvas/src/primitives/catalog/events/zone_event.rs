@@ -36,7 +36,6 @@ pub enum ZoneType {
     Custom,
 }
 
-
 impl ZoneType {
     pub fn as_str(&self) -> &'static str {
         match self {
@@ -110,7 +109,6 @@ pub enum ZoneAction {
     #[default]
     Active,
 }
-
 
 /// Zone event primitive
 #[derive(Clone, Debug, Serialize, Deserialize)]
