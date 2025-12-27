@@ -96,8 +96,8 @@ jobs:
       - name: Update package.json for npm
         run: |
           cd crates/canvas-wasm/pkg
-          # Change name to scoped package
-          sed -i 's/"name": "zengeld-canvas-wasm"/"name": "@zengeld\/canvas"/' package.json
+          # Change name to match npm package name
+          sed -i 's/"name": "zengeld-canvas-wasm"/"name": "zengeld-canvas"/' package.json
           # Add homepage
           sed -i '/"repository"/a\  "homepage": "https://github.com/zengeld/zengeld-canvas",' package.json
           cat package.json
@@ -113,11 +113,6 @@ jobs:
     name: Publish to PyPI
     needs: [build-python, build-sdist]
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/project/zengeld-canvas/
-    permissions:
-      id-token: write  # For trusted publishing
 
     steps:
       - name: Download all wheels
@@ -137,9 +132,6 @@ jobs:
     name: Publish to npm
     needs: [build-wasm]
     runs-on: ubuntu-latest
-    environment:
-      name: npm
-      url: https://www.npmjs.com/package/@zengeld/canvas
 
     steps:
       - uses: actions/checkout@v4
@@ -166,9 +158,6 @@ jobs:
   publish-crates:
     name: Publish to crates.io
     runs-on: ubuntu-latest
-    environment:
-      name: crates-io
-      url: https://crates.io/crates/zengeld-canvas
 
     steps:
       - uses: actions/checkout@v4
