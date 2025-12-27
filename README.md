@@ -16,6 +16,23 @@ A platform-agnostic rendering library for financial charts. Built in Rust with z
 | Python | [PyPI](https://pypi.org/project/zengeld-canvas/) | `pip install zengeld-canvas` |
 | JavaScript | [npm](https://www.npmjs.com/package/zengeld-canvas) | `npm install zengeld-canvas` |
 
+## Examples
+
+<table>
+  <tr>
+    <td align="center"><img src="crates/canvas/chart_output/09_dark_theme.svg" width="400"/><br/><b>Dark Theme</b></td>
+    <td align="center"><img src="crates/canvas/chart_output/05_with_macd.svg" width="400"/><br/><b>MACD Indicator</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="crates/canvas/chart_output/14_multichart_1_3.svg" width="400"/><br/><b>Multi-Chart Layout</b></td>
+    <td align="center"><img src="crates/canvas/chart_output/19_primitives_channels.svg" width="400"/><br/><b>Channels</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="crates/canvas/chart_output/22_primitives_gann.svg" width="400"/><br/><b>Gann Tools</b></td>
+    <td align="center"><img src="crates/canvas/chart_output/25_primitives_patterns.svg" width="400"/><br/><b>Chart Patterns</b></td>
+  </tr>
+</table>
+
 ## Features
 
 - **80+ Drawing Primitives** - Fibonacci, Gann, Pitchforks, Patterns, Elliott Waves, and more
@@ -88,6 +105,10 @@ cd crates/canvas-wasm
 wasm-pack build --target web
 ```
 
+## License
+
+MIT OR Apache-2.0
+
 ## Support the Project
 
 If you find this library useful, consider supporting development:
@@ -100,15 +121,10 @@ If you find this library useful, consider supporting development:
 | BTC | Bitcoin | `bc1qjgzthxja8umt5tvrp5tfcf9zeepmhn0f6mnt40` |
 | SOL | Solana | `DZJjmH8Cs5wEafz5Ua86wBBkurSA4xdWXa3LWnBUR94c` |
 
-## License
+---
 
-Licensed under either of:
-
-- Apache License, Version 2.0
-- MIT License
-
-at your option.
-
-## Author
-
-**zengeld**
+<p align="center">
+  <a href="https://zen-geldmaschine.net/">
+    <img src="assets/author.svg" alt="zengeld" />
+  </a>
+</p>
