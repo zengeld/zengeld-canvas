@@ -436,7 +436,7 @@ viewport.scroll_to_end()
 
 ```python
 from zengeld_canvas import version
-print(version())  # '0.1.6'
+print(version())  # '0.1.7'
 ```
 
 ---

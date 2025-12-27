@@ -442,7 +442,7 @@ viewport.scrollToEnd();
 
 ```javascript
 import { version } from 'zengeld-canvas';
-console.log(version());  // '0.1.6'
+console.log(version());  // '0.1.7'
 ```
 
 ---
