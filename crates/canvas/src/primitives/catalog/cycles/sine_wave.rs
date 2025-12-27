@@ -1,8 +1,8 @@
 //! Sine Wave - sinusoidal wave pattern
 
 use super::super::{
-    crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, TextAlign, TextAnchor,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor, crisp,
 };
 use serde::{Deserialize, Serialize};
 

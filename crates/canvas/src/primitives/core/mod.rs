@@ -18,12 +18,12 @@ pub use config::{
     TimeframeVisibilityConfig,
 };
 pub use render::{
-    crisp, crisp_rect, execute_ops, measure_primitive_text, render_primitive_text,
-    render_primitive_text_rotated, render_text_with_background, RenderContext, RenderOp, RenderOps,
-    TextAlign as RenderTextAlign, TextBaseline,
+    RenderContext, RenderOp, RenderOps, TextAlign as RenderTextAlign, TextBaseline, crisp,
+    crisp_rect, execute_ops, measure_primitive_text, render_primitive_text,
+    render_primitive_text_rotated, render_text_with_background,
 };
 pub use traits::{Primitive, PrimitiveData, PrimitiveKind, SyncMode};
 pub use types::{
-    normalize_text_rotation, point_to_line_distance, ControlPoint, ControlPointType, ExtendMode,
-    LineStyle, PrimitiveColor, PrimitiveText, TextAlign, TextAnchor,
+    ControlPoint, ControlPointType, ExtendMode, LineStyle, PrimitiveColor, PrimitiveText,
+    TextAlign, TextAnchor, normalize_text_rotation, point_to_line_distance,
 };

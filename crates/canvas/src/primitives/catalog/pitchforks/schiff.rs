@@ -4,8 +4,8 @@
 //! halfway to the midpoint of points 2 and 3.
 
 use super::super::{
-    config::FibLevelConfig, crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData,
-    PrimitiveKind, PrimitiveMetadata, RenderContext, TextAlign, TextAnchor,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor, config::FibLevelConfig, crisp,
 };
 use serde::{Deserialize, Serialize};
 

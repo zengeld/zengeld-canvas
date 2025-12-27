@@ -1,8 +1,8 @@
 //! Price Date Range - combined price and time measurement
 
 use super::super::{
-    crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, crisp,
 };
 use serde::{Deserialize, Serialize};
 

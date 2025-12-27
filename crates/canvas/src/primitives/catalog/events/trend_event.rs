@@ -1,8 +1,8 @@
 //! Trend Event - Trend changes, reversals, continuations
 
 use super::super::{
-    crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, TextAnchor,
+    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
+    TextAnchor, crisp,
 };
 use serde::{Deserialize, Serialize};
 

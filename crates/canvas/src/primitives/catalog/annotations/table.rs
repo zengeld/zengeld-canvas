@@ -1,8 +1,8 @@
 //! Table primitive - data table annotation
 
 use super::super::{
-    crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext,
+    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
+    crisp,
 };
 use serde::{Deserialize, Serialize};
 

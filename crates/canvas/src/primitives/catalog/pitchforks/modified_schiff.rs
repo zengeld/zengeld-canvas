@@ -4,8 +4,8 @@
 //! point 2/3 midpoint but keeps the original bar position.
 
 use super::super::{
-    config::FibLevelConfig, crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind,
-    PrimitiveMetadata, RenderContext,
+    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
+    config::FibLevelConfig, crisp,
 };
 use serde::{Deserialize, Serialize};
 

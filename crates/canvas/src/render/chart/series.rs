@@ -5,8 +5,8 @@
 //! to a RenderBatch, which can then be executed by any backend.
 
 use super::super::engine::{
-    crisp_bar_width, crisp_coord, crisp_rect, Color, FillStyle, LineStyle, Path, PathBuilder,
-    Point, Rect, RenderBatch, RenderCommand,
+    Color, FillStyle, LineStyle, Path, PathBuilder, Point, Rect, RenderBatch, RenderCommand,
+    crisp_bar_width, crisp_coord, crisp_rect,
 };
 use crate::core::catmull_rom_spline;
 use crate::model::series::{

@@ -4,8 +4,8 @@
 //! Indicators are rendered based on their VectorStyle (line, area, histogram, etc.)
 
 use super::super::engine::{
-    crisp_bar_width, crisp_coord, crisp_rect, Color, FillStyle, LineStyle, Point, Rect,
-    RenderBatch, RenderCommand, TextStyle,
+    Color, FillStyle, LineStyle, Point, Rect, RenderBatch, RenderCommand, TextStyle,
+    crisp_bar_width, crisp_coord, crisp_rect,
 };
 use crate::model::indicators::{
     ArrowDirection, Indicator, IndicatorLevel, IndicatorVector, Signal, SignalVisual, Strategy,

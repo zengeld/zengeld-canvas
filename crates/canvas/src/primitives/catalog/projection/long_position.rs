@@ -1,8 +1,8 @@
 //! Long Position - buy trade visualization
 
 use super::super::{
-    crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, TextAlign, TextAnchor,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor, crisp,
 };
 use serde::{Deserialize, Serialize};
 
@@ -43,11 +43,7 @@ impl LongPosition {
     pub fn risk_reward(&self) -> f64 {
         let risk = (self.entry_price - self.stop_loss).abs();
         let reward = (self.take_profit - self.entry_price).abs();
-        if risk > 0.0 {
-            reward / risk
-        } else {
-            0.0
-        }
+        if risk > 0.0 { reward / risk } else { 0.0 }
     }
 }
 

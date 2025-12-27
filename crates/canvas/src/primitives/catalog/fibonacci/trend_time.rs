@@ -4,8 +4,8 @@
 //! Uses two points to define a time range, then projects Fib levels.
 
 use super::super::{
-    config::FibLevelConfig, crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData,
-    PrimitiveKind, PrimitiveMetadata, RenderContext,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, config::FibLevelConfig, crisp,
 };
 use serde::{Deserialize, Serialize};
 

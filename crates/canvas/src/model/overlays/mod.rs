@@ -12,7 +12,7 @@ pub mod legend;
 pub mod watermark;
 
 // Re-exports
-pub use compare::{get_compare_color, CompareOverlay, CompareSeries, COMPARE_COLORS};
+pub use compare::{COMPARE_COLORS, CompareOverlay, CompareSeries, get_compare_color};
 pub use grid::{GridLineOptions, GridOptions};
 pub use legend::{Legend, LegendData, LegendPosition};
 pub use watermark::{FontStyle, HorzAlign, VertAlign, Watermark, WatermarkLine};

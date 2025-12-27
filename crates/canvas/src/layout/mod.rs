@@ -8,7 +8,7 @@ pub mod multichart;
 pub mod pane;
 
 // Re-exports - Pane system
-pub use pane::{coordinate_utils, Pane, PaneGeometry, PaneId, PaneManager, SubPane, MAIN_PANE};
+pub use pane::{MAIN_PANE, Pane, PaneGeometry, PaneId, PaneManager, SubPane, coordinate_utils};
 
 // Re-exports - Multichart
 pub use multichart::{CellBounds, CellId, LayoutCell, MultichartLayout};

@@ -1,8 +1,8 @@
 //! Sign primitive - icon-based marker
 
 use super::super::{
-    crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, TextAlign, TextAnchor,
+    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
+    TextAlign, TextAnchor, crisp,
 };
 use serde::{Deserialize, Serialize};
 

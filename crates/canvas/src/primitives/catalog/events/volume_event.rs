@@ -1,8 +1,8 @@
 //! Volume Event - Volume spikes, climax, dry-up events
 
 use super::super::{
-    crisp, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, TextAnchor,
+    Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext,
+    TextAnchor, crisp,
 };
 use serde::{Deserialize, Serialize};
 

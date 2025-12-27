@@ -59,10 +59,6 @@ pub mod utils;
 // =============================================================================
 
 pub use core::{
-    // Text rotation helper
-    normalize_text_rotation,
-    // Geometry helpers
-    point_to_line_distance,
     // Control points (data types)
     ControlPoint,
     ControlPointType,
@@ -79,13 +75,17 @@ pub use core::{
     SyncMode,
     TextAlign,
     TextAnchor,
+    // Text rotation helper
+    normalize_text_rotation,
+    // Geometry helpers
+    point_to_line_distance,
 };
 
 // Rendering exports
 pub use core::render::{
-    crisp as render_crisp, crisp_rect as render_crisp_rect, execute_ops, render_primitive_text,
-    render_primitive_text_rotated, render_text_with_background, EllipseParams, RenderContext,
-    RenderOp, RenderOps, TextBaseline,
+    EllipseParams, RenderContext, RenderOp, RenderOps, TextBaseline, crisp as render_crisp,
+    crisp_rect as render_crisp_rect, execute_ops, render_primitive_text,
+    render_primitive_text_rotated, render_text_with_background,
 };
 
 // Configuration exports

@@ -35,7 +35,7 @@ pub use path::{Path, PathBuilder, PathCommand};
 pub use commands::RenderCommand;
 
 // Re-exports - Batch
-pub use batch::{layers, RenderBatch, RenderQueue};
+pub use batch::{RenderBatch, RenderQueue, layers};
 
 // Re-exports - Backend
 pub use backend::{ImageInfo, NullBackend, RenderBackend, RenderError, RenderResult, TextMetrics};
@@ -47,7 +47,7 @@ pub use crisp::{
 };
 
 // Re-exports - Coordinate conversion
-pub use coords::{snap_point_to_pixel, snap_rect_to_pixel, snap_to_pixel, CoordSystem};
+pub use coords::{CoordSystem, snap_point_to_pixel, snap_rect_to_pixel, snap_to_pixel};
 
 // Re-exports - SVG backend
 pub use svg_backend::SvgBackend;

@@ -4,8 +4,8 @@
 //! Similar to speed resistance but with different angle calculations.
 
 use super::super::{
-    config::FibLevelConfig, crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData,
-    PrimitiveKind, PrimitiveMetadata, RenderContext, TextAlign, TextAnchor,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor, config::FibLevelConfig, crisp,
 };
 use serde::{Deserialize, Serialize};
 

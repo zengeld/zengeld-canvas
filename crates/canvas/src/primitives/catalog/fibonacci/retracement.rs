@@ -4,8 +4,8 @@
 //! Standard levels: 0%, 23.6%, 38.2%, 50%, 61.8%, 78.6%, 100%
 
 use super::super::{
-    config::FibLevelConfig, crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData,
-    PrimitiveKind, PrimitiveMetadata, RenderContext, TextAlign, TextAnchor,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor, config::FibLevelConfig, crisp,
 };
 use serde::{Deserialize, Serialize};
 

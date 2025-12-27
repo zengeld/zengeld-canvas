@@ -4,8 +4,8 @@
 //! Standard angles: 1x8, 1x4, 1x3, 1x2, 1x1, 2x1, 3x1, 4x1, 8x1
 
 use super::super::{
-    config::FibLevelConfig, crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData,
-    PrimitiveKind, PrimitiveMetadata, RenderContext, TextAlign, TextAnchor,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor, config::FibLevelConfig, crisp,
 };
 use serde::{Deserialize, Serialize};
 

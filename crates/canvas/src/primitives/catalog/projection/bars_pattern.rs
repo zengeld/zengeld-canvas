@@ -1,8 +1,8 @@
 //! Bars Pattern - copy and project price pattern
 
 use super::super::{
-    crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, crisp,
 };
 use serde::{Deserialize, Serialize};
 

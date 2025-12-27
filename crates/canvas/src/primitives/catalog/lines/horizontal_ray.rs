@@ -4,8 +4,8 @@
 //! Useful for marking support/resistance levels from a specific bar.
 
 use super::super::{
-    crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext, TextAlign, TextAnchor,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, TextAlign, TextAnchor, crisp,
 };
 use serde::{Deserialize, Serialize};
 

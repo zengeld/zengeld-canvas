@@ -3,8 +3,8 @@
 //! Renders chart annotations (markers, price lines) to RenderCommands.
 
 use super::super::engine::{
-    crisp_coord, Color, FillStyle, FontWeight, LineCap, LineJoin, LineStyle, Point, RenderBatch,
-    RenderCommand, TextAlign, TextBaseline, TextStyle,
+    Color, FillStyle, FontWeight, LineCap, LineJoin, LineStyle, Point, RenderBatch, RenderCommand,
+    TextAlign, TextBaseline, TextStyle, crisp_coord,
 };
 use crate::model::annotations::{
     LineStyle as AnnotationLineStyle, Marker, MarkerPosition, MarkerShape, PriceLine,

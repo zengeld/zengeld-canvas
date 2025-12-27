@@ -1,8 +1,8 @@
 //! Time Cycles - circular time cycles
 
 use super::super::{
-    crisp, EllipseParams, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind,
-    PrimitiveMetadata, RenderContext, TextAlign, TextAnchor,
+    EllipseParams, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind,
+    PrimitiveMetadata, RenderContext, TextAlign, TextAnchor, crisp,
 };
 use serde::{Deserialize, Serialize};
 

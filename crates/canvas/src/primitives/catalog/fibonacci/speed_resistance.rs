@@ -4,8 +4,8 @@
 //! Also known as speed/resistance arcs - combines price and time analysis.
 
 use super::super::{
-    config::FibLevelConfig, crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData,
-    PrimitiveKind, PrimitiveMetadata, RenderContext,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, config::FibLevelConfig, crisp,
 };
 use serde::{Deserialize, Serialize};
 

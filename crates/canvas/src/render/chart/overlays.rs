@@ -3,8 +3,8 @@
 //! Renders chart overlays (grid, legend, watermark) to RenderCommands.
 
 use super::super::engine::{
-    crisp_coord, Color, FontWeight, LineStyle as RenderLineStyle, Point, Rect, RenderBatch,
-    RenderCommand, TextAlign, TextBaseline, TextStyle,
+    Color, FontWeight, LineStyle as RenderLineStyle, Point, Rect, RenderBatch, RenderCommand,
+    TextAlign, TextBaseline, TextStyle, crisp_coord,
 };
 use crate::model::overlays::{GridOptions, Legend, LegendData, Watermark};
 

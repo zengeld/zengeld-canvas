@@ -71,15 +71,9 @@ pub mod api;
 
 // Core types and utilities
 pub use core::{
-    catmull_rom_spline,
-    crisp,
-    crisp_rect,
-    format_indicator_value,
-    parse_css_color,
-    Bar,
-    Theme,
     BOTTOM_SIDEBAR_HEIGHT,
     BOTTOM_TOOLBAR_HEIGHT,
+    Bar,
     // Sidebar & toolbar constants
     LEFT_SIDEBAR_WIDTH,
     LEFT_TOOLBAR_WIDTH,
@@ -101,6 +95,12 @@ pub use core::{
     TIME_SCALE_FONT_SIZE,
     TIME_SCALE_HEIGHT,
     TOP_TOOLBAR_HEIGHT,
+    Theme,
+    catmull_rom_spline,
+    crisp,
+    crisp_rect,
+    format_indicator_value,
+    parse_css_color,
 };
 
 // Configuration system
@@ -112,9 +112,9 @@ pub use core::{
 
 // Coordinate systems
 pub use coords::{
-    format_price, format_time_by_weight, format_time_full, lwc_nice_number, nice_number,
-    nice_price_step, price_precision, PriceScale, PriceScaleMode, TickMarkWeight, TimeScale,
-    TimeTick, Viewport, DAY, HOUR, MINUTE, NICE_MULTIPLIERS,
+    DAY, HOUR, MINUTE, NICE_MULTIPLIERS, PriceScale, PriceScaleMode, TickMarkWeight, TimeScale,
+    TimeTick, Viewport, format_price, format_time_by_weight, format_time_full, lwc_nice_number,
+    nice_number, nice_price_step, price_precision,
 };
 
 // Model - Series
@@ -128,7 +128,7 @@ pub use model::{
 
 // Model - Overlays
 pub use model::{
-    get_compare_color,
+    COMPARE_COLORS,
     // Compare overlay
     CompareOverlay,
     CompareSeries,
@@ -142,7 +142,7 @@ pub use model::{
     VertAlign,
     Watermark,
     WatermarkLine,
-    COMPARE_COLORS,
+    get_compare_color,
 };
 
 // Model - Annotations
@@ -152,23 +152,13 @@ pub use model::{
 };
 
 // Layout - Panes
-pub use layout::{Pane, PaneGeometry, PaneId, PaneManager, SubPane, MAIN_PANE};
+pub use layout::{MAIN_PANE, Pane, PaneGeometry, PaneId, PaneManager, SubPane};
 
 // Layout - Multichart
 pub use layout::{CellBounds, CellId, LayoutCell, MultichartLayout};
 
 // Primitives (Drawing System)
 pub use primitives::{
-    execute_ops,
-    // Point label generation
-    get_point_labels,
-    // Geometry helpers
-    point_to_line_distance,
-    render_crisp,
-    render_crisp_rect,
-    render_primitive_text,
-    render_primitive_text_rotated,
-    render_text_with_background,
     // Control points (data types only, not UI)
     ControlPoint,
     ControlPointType,
@@ -202,6 +192,16 @@ pub use primitives::{
     Trade,
     TradeDirection,
     TradeManager,
+    execute_ops,
+    // Point label generation
+    get_point_labels,
+    // Geometry helpers
+    point_to_line_distance,
+    render_crisp,
+    render_crisp_rect,
+    render_primitive_text,
+    render_primitive_text_rotated,
+    render_text_with_background,
 };
 
 // =============================================================================

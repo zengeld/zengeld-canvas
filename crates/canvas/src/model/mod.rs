@@ -53,7 +53,7 @@ pub use series::{
 // Overlays re-exports
 // =============================================================================
 pub use overlays::{
-    get_compare_color,
+    COMPARE_COLORS,
     // Compare
     CompareOverlay,
     CompareSeries,
@@ -70,7 +70,7 @@ pub use overlays::{
     VertAlign,
     Watermark,
     WatermarkLine,
-    COMPARE_COLORS,
+    get_compare_color,
 };
 
 // =============================================================================

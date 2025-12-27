@@ -1,8 +1,8 @@
 //! Price Projection - project price movement
 
 use super::super::{
-    crisp, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
-    RenderContext,
+    LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind, PrimitiveMetadata,
+    RenderContext, crisp,
 };
 use serde::{Deserialize, Serialize};
 

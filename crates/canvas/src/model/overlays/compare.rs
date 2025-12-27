@@ -3,8 +3,8 @@
 //! This module provides functionality to overlay additional symbols on the main chart
 //! for comparison purposes. Values are displayed as relative percentages from a base point.
 
-use crate::coords::PriceScaleMode;
 use crate::Bar;
+use crate::coords::PriceScaleMode;
 
 /// A single compare series (one symbol overlay)
 #[derive(Clone, Debug)]

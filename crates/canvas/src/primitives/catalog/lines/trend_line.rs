@@ -3,8 +3,8 @@
 //! A simple line between two points. The most basic drawing tool.
 
 use super::super::{
-    crisp, normalize_text_rotation, ExtendMode, LineStyle, Primitive, PrimitiveColor,
-    PrimitiveData, PrimitiveKind, PrimitiveMetadata, RenderContext, TextAlign, TextAnchor,
+    ExtendMode, LineStyle, Primitive, PrimitiveColor, PrimitiveData, PrimitiveKind,
+    PrimitiveMetadata, RenderContext, TextAlign, TextAnchor, crisp, normalize_text_rotation,
 };
 use serde::{Deserialize, Serialize};
 
