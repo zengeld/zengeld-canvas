@@ -1,6 +1,6 @@
 [package]
 name = "zengeld-canvas-wasm"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2024"
 license = "MIT OR Apache-2.0"
 description = "WebAssembly bindings for zengeld-canvas chart rendering engine"
