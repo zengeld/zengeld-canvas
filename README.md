@@ -20,12 +20,12 @@ A platform-agnostic rendering library for financial charts. Built in Rust with z
 
 <table>
   <tr>
-    <td align="center"><img src="crates/canvas/chart_output/09_dark_theme.svg" width="400"/><br/><b>Dark Theme</b></td>
     <td align="center"><img src="crates/canvas/chart_output/09_light_theme.svg" width="400"/><br/><b>Light Theme</b></td>
+    <td align="center"><img src="crates/canvas/chart_output/09b_high_contrast_theme.svg" width="400"/><br/><b>High Contrast Theme</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="crates/canvas/chart_output/09b_high_contrast_theme.svg" width="400"/><br/><b>High Contrast Theme</b></td>
     <td align="center"><img src="crates/canvas/chart_output/09c_cyberpunk_theme.svg" width="400"/><br/><b>Cyberpunk Theme</b></td>
+    <td align="center"><img src="crates/canvas/chart_output/09d_runtime_theme.svg" width="400"/><br/><b>Runtime Custom Theme</b></td>
   </tr>
   <tr>
     <td align="center"><img src="crates/canvas/chart_output/05_with_macd.svg" width="400"/><br/><b>MACD Indicator</b></td>
