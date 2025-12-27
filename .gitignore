@@ -1,0 +1,31 @@
+# Rust
+/target/
+crates/*/target/
+# Cargo.lock is committed for reproducible builds
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+*.whl
+
+# WASM build output
+pkg/
+pkg-node/
+pkg-bundler/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test/coverage
+*.lcov
+coverage/

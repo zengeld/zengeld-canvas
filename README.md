@@ -1,0 +1,114 @@
+# zengeld-canvas
+
+**High-performance SVG chart rendering engine for financial data visualization**
+
+[![Crates.io](https://img.shields.io/crates/v/zengeld-canvas.svg)](https://crates.io/crates/zengeld-canvas)
+[![PyPI](https://img.shields.io/pypi/v/zengeld-canvas.svg)](https://pypi.org/project/zengeld-canvas/)
+[![npm](https://img.shields.io/npm/v/zengeld-canvas.svg)](https://www.npmjs.com/package/zengeld-canvas)
+
+A platform-agnostic rendering library for financial charts. Built in Rust with zero runtime dependencies, available for Rust, Python, and JavaScript.
+
+## Packages
+
+| Platform | Package | Install |
+|----------|---------|---------|
+| Rust | [crates.io](https://crates.io/crates/zengeld-canvas) | `cargo add zengeld-canvas` |
+| Python | [PyPI](https://pypi.org/project/zengeld-canvas/) | `pip install zengeld-canvas` |
+| JavaScript | [npm](https://www.npmjs.com/package/zengeld-canvas) | `npm install zengeld-canvas` |
+
+## Features
+
+- **80+ Drawing Primitives** - Fibonacci, Gann, Pitchforks, Patterns, Elliott Waves, and more
+- **12 Series Types** - Candlestick, Line, Area, Histogram, and more
+- **Platform Agnostic** - `RenderContext` trait for any rendering backend
+- **Zero Dependencies** - Only serde for serialization
+- **High Performance** - Optimized for real-time chart rendering
+
+## Workspace Structure
+
+```
+zengeld-canvas/
+├── crates/
+│   ├── canvas/       # Core Rust library
+│   ├── canvas-py/    # Python bindings (PyO3)
+│   └── canvas-wasm/  # WASM bindings (wasm-bindgen)
+```
+
+## Quick Start
+
+### Rust
+
+```rust
+use zengeld_canvas::{Bar, Viewport, Theme};
+
+let bar = Bar {
+    time: 1703721600,
+    open: 100.0, high: 105.0, low: 98.0, close: 103.0,
+    volume: 1_000_000.0,
+};
+
+let viewport = Viewport::new(800.0, 600.0);
+let theme = Theme::dark();
+```
+
+### Python
+
+```python
+from zengeld_canvas import Bar, Viewport, Theme
+
+bar = Bar(time=1703721600, open=100.0, high=105.0, low=98.0, close=103.0)
+viewport = Viewport(800.0, 600.0)
+theme = Theme.dark()
+```
+
+### JavaScript
+
+```javascript
+import init, { JsBar, JsViewport, JsTheme } from 'zengeld-canvas';
+
+await init();
+
+const bar = new JsBar(1703721600, 100.0, 105.0, 98.0, 103.0, 1000000);
+const viewport = new JsViewport(800.0, 600.0);
+const theme = JsTheme.dark();
+```
+
+## Building
+
+```bash
+# Build all crates
+cargo build --workspace
+
+# Build Python wheel
+cd crates/canvas-py
+maturin build --release
+
+# Build WASM
+cd crates/canvas-wasm
+wasm-pack build --target web
+```
+
+## Support the Project
+
+If you find this library useful, consider supporting development:
+
+| Currency | Network | Address |
+|----------|---------|---------|
+| USDT | TRC20 | `TNxMKsvVLYViQ5X5sgCYmkzH4qjhhh5U7X` |
+| USDC | Arbitrum | `0xEF3B94Fe845E21371b4C4C5F2032E1f23A13Aa6e` |
+| ETH | Ethereum | `0xEF3B94Fe845E21371b4C4C5F2032E1f23A13Aa6e` |
+| BTC | Bitcoin | `bc1qjgzthxja8umt5tvrp5tfcf9zeepmhn0f6mnt40` |
+| SOL | Solana | `DZJjmH8Cs5wEafz5Ua86wBBkurSA4xdWXa3LWnBUR94c` |
+
+## License
+
+Licensed under either of:
+
+- Apache License, Version 2.0
+- MIT License
+
+at your option.
+
+## Author
+
+**zengeld**

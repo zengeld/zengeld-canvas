@@ -1,0 +1,32 @@
+{
+  "name": "zengeld-canvas",
+  "version": "0.1.0",
+  "description": "High-performance SVG chart rendering engine for financial data visualization",
+  "main": "pkg/zengeld_canvas.js",
+  "types": "pkg/zengeld_canvas.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zengeld/zengeld-canvas"
+  },
+  "keywords": [
+    "charts",
+    "trading",
+    "svg",
+    "visualization",
+    "finance",
+    "candlestick",
+    "wasm",
+    "webassembly"
+  ],
+  "author": "zengeld",
+  "license": "MIT OR Apache-2.0",
+  "files": [
+    "pkg/*"
+  ],
+  "scripts": {
+    "build": "wasm-pack build --target web --out-dir pkg",
+    "build:node": "wasm-pack build --target nodejs --out-dir pkg-node",
+    "build:bundler": "wasm-pack build --target bundler --out-dir pkg-bundler"
+  },
+  "devDependencies": {}
+}
