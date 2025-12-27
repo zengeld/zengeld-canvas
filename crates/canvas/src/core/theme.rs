@@ -15,7 +15,7 @@
 //! # Usage
 //!
 //! ```rust
-//! use zengeld_canvas::UITheme;
+//! use zengeld_canvas::{UITheme, RuntimeTheme};
 //!
 //! // Static theme (compile-time, &'static str)
 //! let dark = UITheme::dark();
