@@ -1,19 +1,15 @@
 //! Chart Gallery Example
 //!
-//! Demonstrates various chart configurations with different:
-//! - Series types (candlesticks, line, area)
-//! - Indicators (SMA, EMA, Bollinger, RSI, MACD)
-//! - Subpanes
-//! - Signals
-//! - Primitives
+//! Demonstrates chart rendering with different themes and primitives.
+//! Generates selected SVG outputs showcasing the rendering engine.
 
 use std::fs;
 use zengeld_canvas::api::{
-    Chart, ChartConfig, ChartRenderer, Indicator, MultichartRenderer, PrimitiveConfig,
-    SeriesConfig, SignalConfig, ThemeConfig,
+    Chart, ChartConfig, Indicator, MultichartRenderer, PrimitiveConfig, SeriesConfig, SignalConfig,
 };
 use zengeld_canvas::core::Bar;
 use zengeld_canvas::layout::MultichartLayout;
+use zengeld_canvas::{RuntimeTheme, UITheme};
 
 fn main() {
     // Create output directory
@@ -25,42 +21,12 @@ fn main() {
 
     println!("Generating chart gallery...\n");
 
-    // 1. Simple Candlestick Chart
-    println!("1. Simple Candlestick Chart");
-    let svg = Chart::new(800, 400).bars(&bars).candlesticks().render_svg();
-    save_svg(&svg, &format!("{}/01_candlestick.svg", output_dir));
+    // =========================================================================
+    // Theme Showcase
+    // =========================================================================
 
-    // 2. Line Chart with SMA
-    println!("2. Line Chart with SMA");
-    let svg = Chart::new(800, 400)
-        .bars(&bars)
-        .line()
-        .sma(20, "#2196F3")
-        .sma(50, "#FF9800")
-        .render_svg();
-    save_svg(&svg, &format!("{}/02_line_with_sma.svg", output_dir));
-
-    // 3. Candlestick with Bollinger Bands
-    println!("3. Candlestick with Bollinger Bands");
-    let svg = Chart::new(800, 400)
-        .bars(&bars)
-        .candlesticks()
-        .bollinger(20, 2.0)
-        .render_svg();
-    save_svg(&svg, &format!("{}/03_bollinger.svg", output_dir));
-
-    // 4. Chart with RSI Subpane
-    println!("4. Chart with RSI Subpane");
-    let svg = Chart::new(800, 500)
-        .bars(&bars)
-        .candlesticks()
-        .sma(20, "#2196F3")
-        .rsi(14)
-        .render_svg();
-    save_svg(&svg, &format!("{}/04_with_rsi.svg", output_dir));
-
-    // 5. Chart with MACD Subpane
-    println!("5. Chart with MACD Subpane");
+    // 05. Chart with MACD Subpane (Dark theme - default)
+    println!("05. Chart with MACD Subpane (Dark Theme)");
     let svg = Chart::new(800, 500)
         .bars(&bars)
         .candlesticks()
@@ -70,116 +36,68 @@ fn main() {
         .render_svg();
     save_svg(&svg, &format!("{}/05_with_macd.svg", output_dir));
 
-    // 6. Full Featured Chart (RSI + Volume)
-    println!("6. Full Featured Chart");
-    let svg = Chart::new(1000, 700)
+    // 09. Light Theme Chart
+    println!("09. Light Theme Chart");
+    let light_theme = UITheme::light();
+    let svg = Chart::new(800, 400)
         .bars(&bars)
         .candlesticks()
+        .background(light_theme.chart.background)
+        .colors(
+            light_theme.series.candle_up_body,
+            light_theme.series.candle_down_body,
+        )
         .sma(20, "#2196F3")
-        .sma(50, "#FF9800")
-        .ema(9, "#26a69a")
-        .rsi(14)
-        .volume()
         .render_svg();
-    save_svg(&svg, &format!("{}/06_full_featured.svg", output_dir));
+    save_svg(&svg, &format!("{}/09_light_theme.svg", output_dir));
 
-    // 7. Chart with Buy/Sell Signals
-    println!("7. Chart with Signals");
+    // 09b. High Contrast Theme Chart
+    println!("09b. High Contrast Theme Chart");
+    let contrast_theme = UITheme::high_contrast();
     let svg = Chart::new(800, 400)
         .bars(&bars)
         .candlesticks()
-        .sma(20, "#2196F3")
-        .signal(SignalConfig::buy(30, bars[30].low - 2.0))
-        .signal(SignalConfig::sell(60, bars[60].high + 2.0))
-        .signal(SignalConfig::buy(90, bars[90].low - 2.0))
-        .signal(SignalConfig::sell(120, bars[120].high + 2.0))
-        .signal(SignalConfig::buy(150, bars[150].low - 2.0))
+        .background(contrast_theme.chart.background)
+        .colors(
+            contrast_theme.series.candle_up_body,
+            contrast_theme.series.candle_down_body,
+        )
+        .sma(20, contrast_theme.colors.accent)
         .render_svg();
-    save_svg(&svg, &format!("{}/07_with_signals.svg", output_dir));
+    save_svg(&svg, &format!("{}/09b_high_contrast_theme.svg", output_dir));
 
-    // 8. Chart with Primitives (Trend Lines)
-    println!("8. Chart with Primitives");
+    // 09c. Cyberpunk Theme Chart
+    println!("09c. Cyberpunk Theme Chart");
+    let cyber_theme = UITheme::cyberpunk();
     let svg = Chart::new(800, 400)
         .bars(&bars)
         .candlesticks()
-        .primitive(PrimitiveConfig::trend_line(
-            (20.0, bars[20].low as f64),
-            (80.0, bars[80].low as f64),
-        ))
-        .primitive(PrimitiveConfig::horizontal_line(
-            bars.iter()
-                .map(|b| b.high)
-                .fold(f64::NEG_INFINITY, f64::max)
-                + 1.0,
-        ))
+        .background(cyber_theme.chart.background)
+        .colors(
+            cyber_theme.series.candle_up_body,
+            cyber_theme.series.candle_down_body,
+        )
+        .sma(20, cyber_theme.colors.accent)
         .render_svg();
-    save_svg(&svg, &format!("{}/08_with_primitives.svg", output_dir));
+    save_svg(&svg, &format!("{}/09c_cyberpunk_theme.svg", output_dir));
 
-    // 9. Dark Theme Chart
-    println!("9. Dark Theme Chart");
+    // 09d. Runtime Theme (custom JSON-modifiable)
+    println!("09d. Runtime Theme (Custom)");
+    let mut runtime_theme = RuntimeTheme::from_preset("dark");
+    runtime_theme.chart.background = "#1a0a2e".to_string(); // Deep purple
+    runtime_theme.series.candle_up_body = "#00ffff".to_string(); // Cyan
+    runtime_theme.series.candle_down_body = "#ff00ff".to_string(); // Magenta
     let svg = Chart::new(800, 400)
         .bars(&bars)
         .candlesticks()
-        .background("#000000")
-        .colors("#00ff00", "#ff0000")
+        .background(&runtime_theme.chart.background)
+        .colors(
+            &runtime_theme.series.candle_up_body,
+            &runtime_theme.series.candle_down_body,
+        )
         .sma(20, "#ffff00")
         .render_svg();
-    save_svg(&svg, &format!("{}/09_dark_theme.svg", output_dir));
-
-    // 10. Area Chart
-    println!("10. Area Chart");
-    let svg = Chart::new(800, 400).bars(&bars).area().render_svg();
-    save_svg(&svg, &format!("{}/10_area.svg", output_dir));
-
-    // 11. Using ChartConfig directly (advanced)
-    println!("11. ChartConfig Direct Usage");
-    let config = ChartConfig {
-        width: 1200,
-        height: 800,
-        dpr: 2.0,
-        theme: ThemeConfig {
-            background: "#1a1a2e".into(),
-            up_color: "#00d4aa".into(),
-            down_color: "#ff6b6b".into(),
-            grid_color: "#2a2a4a".into(),
-            text_color: "#e0e0e0".into(),
-            show_grid: true,
-            ..Default::default()
-        },
-        series: SeriesConfig::candlestick(),
-        indicators: vec![
-            // Overlays (on main chart)
-            Indicator::sma("sma_10", 10, "#4ecdc4"),
-            Indicator::sma("sma_20", 20, "#45b7d1"),
-            Indicator::ema("ema_50", 50, "#96ceb4"),
-            // Subpanes (separate panels)
-            Indicator::rsi("rsi_14", 14),
-        ],
-        primitives: vec![],
-        signals: vec![
-            SignalConfig::buy(40, bars[40].low - 3.0),
-            SignalConfig::sell(100, bars[100].high + 3.0),
-        ],
-        ..Default::default()
-    };
-
-    let renderer = ChartRenderer::new(&config, &bars);
-    let svg = renderer.render_svg();
-    save_svg(&svg, &format!("{}/11_config_direct.svg", output_dir));
-
-    // 12. Multiple Overlays Comparison
-    println!("12. Multiple Overlays");
-    let svg = Chart::new(1000, 500)
-        .bars(&bars)
-        .candlesticks()
-        .sma(5, "#e91e63")
-        .sma(10, "#9c27b0")
-        .sma(20, "#673ab7")
-        .sma(50, "#3f51b5")
-        .sma(100, "#2196f3")
-        .ema(21, "#00bcd4")
-        .render_svg();
-    save_svg(&svg, &format!("{}/12_multiple_overlays.svg", output_dir));
+    save_svg(&svg, &format!("{}/09d_runtime_theme.svg", output_dir));
 
     // =========================================================================
     // Multichart Examples
@@ -189,7 +107,6 @@ fn main() {
     println!("13. Multichart 2x2 - Different Series Types");
     let layout_2x2 = MultichartLayout::quad();
 
-    // Create 4 different chart configs
     let config_candlestick = ChartConfig {
         series: SeriesConfig::candlestick(),
         indicators: vec![Indicator::sma("sma", 20, "#2196F3")],
@@ -255,140 +172,9 @@ fn main() {
         .render_svg();
     save_svg(&svg, &format!("{}/14_multichart_1_3.svg", output_dir));
 
-    // 15. Horizontal Split - Two timeframes comparison
-    println!("15. Multichart Horizontal - Two Charts");
-    let layout_h2 = MultichartLayout::horizontal_split();
-
-    let config_with_subpane1 = ChartConfig {
-        series: SeriesConfig::candlestick(),
-        indicators: vec![
-            Indicator::sma("sma", 20, "#2196F3"),
-            Indicator::rsi("rsi", 14),
-        ],
-        theme: ThemeConfig {
-            up_color: "#26a69a".into(),
-            down_color: "#ef5350".into(),
-            ..Default::default()
-        },
-        ..Default::default()
-    };
-    let config_with_subpane2 = ChartConfig {
-        series: SeriesConfig::candlestick(),
-        indicators: vec![
-            Indicator::ema("ema", 12, "#FF9800"),
-            Indicator::macd("macd", 12, 26, 9),
-        ],
-        theme: ThemeConfig {
-            up_color: "#4caf50".into(),
-            down_color: "#f44336".into(),
-            ..Default::default()
-        },
-        ..Default::default()
-    };
-
-    let svg = MultichartRenderer::new(&layout_h2, 1400, 600)
-        .chart(&config_with_subpane1, &bars)
-        .chart(&config_with_subpane2, &bars)
-        .render_svg();
-    save_svg(
-        &svg,
-        &format!("{}/15_multichart_horizontal.svg", output_dir),
-    );
-
-    // 16. Vertical Stack - 3 charts with different series
-    println!("16. Multichart Vertical 3 - Stack");
-    let layout_v3 = MultichartLayout::triple_vertical();
-
-    let config_heikin = ChartConfig {
-        series: SeriesConfig::heikin_ashi(),
-        indicators: vec![Indicator::sma("sma", 10, "#2196F3")],
-        ..Default::default()
-    };
-    let config_baseline = ChartConfig {
-        series: SeriesConfig::baseline(100.0), // baseline at 100
-        ..Default::default()
-    };
-    let config_hollow = ChartConfig {
-        series: SeriesConfig::hollow_candlestick(),
-        indicators: vec![Indicator::ema("ema", 21, "#9c27b0")],
-        ..Default::default()
-    };
-
-    let svg = MultichartRenderer::new(&layout_v3, 1000, 900)
-        .chart(&config_heikin, &bars)
-        .chart(&config_baseline, &bars)
-        .chart(&config_hollow, &bars)
-        .render_svg();
-    save_svg(&svg, &format!("{}/16_multichart_vertical.svg", output_dir));
-
-    // 17. Six Pack - 2x3 Grid
-    println!("17. Multichart 2x3 - Six Pack");
-    let layout_6 = MultichartLayout::six_pack();
-
-    let configs = vec![
-        ChartConfig {
-            series: SeriesConfig::candlestick(),
-            ..Default::default()
-        },
-        ChartConfig {
-            series: SeriesConfig::hollow_candlestick(),
-            ..Default::default()
-        },
-        ChartConfig {
-            series: SeriesConfig::line(),
-            ..Default::default()
-        },
-        ChartConfig {
-            series: SeriesConfig::area(),
-            ..Default::default()
-        },
-        ChartConfig {
-            series: SeriesConfig::bar(),
-            ..Default::default()
-        },
-        ChartConfig {
-            series: SeriesConfig::baseline(100.0),
-            ..Default::default()
-        },
-    ];
-
-    let mut renderer = MultichartRenderer::new(&layout_6, 1500, 800);
-    for config in &configs {
-        renderer = renderer.chart(config, &bars);
-    }
-    let svg = renderer.render_svg();
-    save_svg(&svg, &format!("{}/17_multichart_6pack.svg", output_dir));
-
     // =========================================================================
     // Primitives Showcase
     // =========================================================================
-
-    // 18. Lines & Rays
-    println!("18. Primitives - Lines & Rays");
-    let svg = Chart::new(1000, 500)
-        .bars(&bars)
-        .candlesticks()
-        .primitive(PrimitiveConfig::trend_line(
-            (20.0, bars[20].low),
-            (80.0, bars[80].low),
-        ))
-        .primitive(PrimitiveConfig::horizontal_line(bars[50].high + 5.0).with_color("#FF9800"))
-        .primitive(PrimitiveConfig::vertical_line(100.0).with_color("#9C27B0"))
-        .primitive(
-            PrimitiveConfig::ray((30.0, bars[30].high), (70.0, bars[70].high))
-                .with_color("#2196F3"),
-        )
-        .primitive(
-            PrimitiveConfig::extended_line((10.0, bars[10].close), (50.0, bars[50].close))
-                .with_color("#4CAF50"),
-        )
-        .primitive(
-            PrimitiveConfig::horizontal_ray((60.0, bars[60].close), (90.0, bars[60].close))
-                .with_color("#E91E63"),
-        )
-        .primitive(PrimitiveConfig::cross_line((120.0, bars[120].close)).with_color("#00BCD4"))
-        .render_svg();
-    save_svg(&svg, &format!("{}/18_primitives_lines.svg", output_dir));
 
     // 19. Channels
     println!("19. Primitives - Channels");
@@ -477,9 +263,9 @@ fn main() {
         .candlesticks()
         .primitive(
             PrimitiveConfig::pitchfork(
-                (20.0, bars[20].high), // pivot
-                (50.0, bars[50].low),  // left
-                (80.0, bars[80].high), // right
+                (20.0, bars[20].high),
+                (50.0, bars[50].low),
+                (80.0, bars[80].high),
             )
             .with_color("#2196F3"),
         )
@@ -555,9 +341,9 @@ fn main() {
         .bars(&bars)
         .candlesticks()
         .primitive(PrimitiveConfig::long_position(
-            (80.0, entry_price),         // entry
-            (100.0, entry_price + 10.0), // take profit
-            (70.0, entry_price - 5.0),   // stop loss
+            (80.0, entry_price),
+            (100.0, entry_price + 10.0),
+            (70.0, entry_price - 5.0),
         ))
         .primitive(PrimitiveConfig::short_position(
             (140.0, bars[140].close),
@@ -575,23 +361,6 @@ fn main() {
     // Signals Showcase
     // =========================================================================
 
-    // 27. All Signal Types
-    println!("27. Signals - All Types");
-    let svg = Chart::new(1000, 500)
-        .bars(&bars)
-        .candlesticks()
-        .sma(20, "#2196F3")
-        .signal(SignalConfig::buy(20, bars[20].low - 2.0))
-        .signal(SignalConfig::sell(40, bars[40].high + 2.0))
-        .signal(SignalConfig::entry(60, bars[60].close).with_color("#00BCD4"))
-        .signal(SignalConfig::exit(80, bars[80].close).with_color("#FF9800"))
-        .signal(SignalConfig::take_profit(100, bars[100].high + 1.0))
-        .signal(SignalConfig::stop_loss(120, bars[120].low - 1.0))
-        .signal(SignalConfig::custom(140, bars[140].close, "S").with_color("#9C27B0"))
-        .signal(SignalConfig::custom(160, bars[160].high + 1.0, "!").with_color("#E91E63"))
-        .render_svg();
-    save_svg(&svg, &format!("{}/27_signals_all_types.svg", output_dir));
-
     // 28. Trading Strategy Signals
     println!("28. Signals - Trading Strategy");
     let svg = Chart::new(1000, 500)
@@ -599,7 +368,6 @@ fn main() {
         .candlesticks()
         .sma(10, "#26a69a")
         .sma(30, "#ef5350")
-        // SMA crossover signals (simulated)
         .signal(SignalConfig::buy(25, bars[25].low - 2.0).with_label("Long"))
         .signal(SignalConfig::take_profit(45, bars[45].high + 1.0).with_label("TP1"))
         .signal(SignalConfig::take_profit(55, bars[55].high + 1.0).with_label("TP2"))
@@ -611,10 +379,6 @@ fn main() {
         .signal(SignalConfig::exit(170, bars[170].close).with_label("Close"))
         .render_svg();
     save_svg(&svg, &format!("{}/28_signals_strategy.svg", output_dir));
-
-    // =========================================================================
-    // Events Showcase
-    // =========================================================================
 
     // 29. Technical Events
     println!("29. Events - Technical");
@@ -634,73 +398,30 @@ fn main() {
         .render_svg();
     save_svg(&svg, &format!("{}/29_events_technical.svg", output_dir));
 
-    // 30. Zone Events
-    println!("30. Events - Zones");
-    let svg = Chart::new(1000, 500)
-        .bars(&bars)
-        .candlesticks()
-        .primitive(
-            PrimitiveConfig::zone_event((20.0, bars[30].high + 2.0), (60.0, bars[30].high + 5.0))
-                .with_color("#4CAF50")
-                .with_text("Resistance Zone"),
-        )
-        .primitive(
-            PrimitiveConfig::zone_event((80.0, bars[100].low - 3.0), (140.0, bars[100].low))
-                .with_color("#2196F3")
-                .with_text("Support Zone"),
-        )
-        .primitive(PrimitiveConfig::volume_event((50.0, bars[50].low - 2.0)).with_color("#FF9800"))
-        .primitive(PrimitiveConfig::custom_event(
-            (120.0, bars[120].high + 2.0),
-            "News",
-        ))
-        .render_svg();
-    save_svg(&svg, &format!("{}/30_events_zones.svg", output_dir));
-
-    // =========================================================================
-    // Complex Combined Examples
-    // =========================================================================
-
-    // 31. Full Analysis Chart
-    println!("31. Full Analysis Chart");
-    let svg = Chart::new(1200, 700)
-        .bars(&bars)
-        .candlesticks()
-        .sma(20, "#2196F3")
-        .sma(50, "#FF9800")
-        .bollinger(20, 2.0)
-        .rsi(14)
-        .volume()
-        // Fibonacci retracement
-        .primitive(PrimitiveConfig::fib_retracement(
-            (30.0, bars[30].low),
-            (70.0, bars[50].high),
-        ))
-        // Support/Resistance
-        .primitive(PrimitiveConfig::horizontal_line(bars[50].high).with_color("#ef5350"))
-        .primitive(PrimitiveConfig::horizontal_line(bars[30].low).with_color("#26a69a"))
-        // Signals
-        .signal(SignalConfig::buy(35, bars[35].low - 2.0))
-        .signal(SignalConfig::sell(65, bars[65].high + 2.0))
-        .signal(SignalConfig::buy(100, bars[100].low - 2.0))
-        // Annotations
-        .primitive(PrimitiveConfig::text(
-            (50.0, bars[50].high + 6.0),
-            "Swing High",
-        ))
-        .primitive(PrimitiveConfig::text(
-            (30.0, bars[30].low - 4.0),
-            "Swing Low",
-        ))
-        .render_svg();
-    save_svg(&svg, &format!("{}/31_full_analysis.svg", output_dir));
-
     println!("\n[OK] All charts generated in '{}/'\n", output_dir);
     println!("Generated files:");
-    for i in 1..=31 {
-        let prefix = if i < 10 { "0" } else { "" };
-        println!("  - {}{}_*.svg", prefix, i);
-    }
+    println!("  - 05_with_macd.svg (Dark theme)");
+    println!("  - 09_light_theme.svg (Light theme)");
+    println!("  - 09b_high_contrast_theme.svg");
+    println!("  - 09c_cyberpunk_theme.svg");
+    println!("  - 09d_runtime_theme.svg (Custom)");
+    println!("  - 13_multichart_2x2.svg");
+    println!("  - 14_multichart_1_3.svg");
+    println!("  - 19_primitives_channels.svg");
+    println!("  - 20_primitives_shapes.svg");
+    println!("  - 21_primitives_fibonacci.svg");
+    println!("  - 22_primitives_gann.svg");
+    println!("  - 23_primitives_pitchforks.svg");
+    println!("  - 24_primitives_annotations.svg");
+    println!("  - 25_primitives_patterns.svg");
+    println!("  - 26_primitives_positions.svg");
+    println!("  - 28_signals_strategy.svg");
+    println!("  - 29_events_technical.svg");
+
+    // Print theme JSON example
+    println!("\n--- RuntimeTheme JSON Example ---");
+    let theme = RuntimeTheme::dark();
+    println!("{}", theme.to_json());
 }
 
 /// Generate sample OHLCV bars with realistic price movement
@@ -708,16 +429,15 @@ fn generate_sample_bars(count: usize) -> Vec<Bar> {
     let mut bars = Vec::with_capacity(count);
     let mut price = 100.0;
     let base_volume = 1_000_000.0;
-    let start_time = 1700000000i64; // Some timestamp
+    let start_time = 1700000000i64;
 
     for i in 0..count {
-        // Random walk with trend
         let trend = ((i as f64 / count as f64) * std::f64::consts::PI * 2.0).sin() * 10.0;
         let noise = pseudo_random(i as u64) * 4.0 - 2.0;
         let change = trend * 0.1 + noise;
 
         price += change;
-        price = price.max(50.0); // Floor price
+        price = price.max(50.0);
 
         let volatility = 1.0 + pseudo_random(i as u64 + 1000) * 2.0;
         let high = price + volatility;
@@ -738,7 +458,7 @@ fn generate_sample_bars(count: usize) -> Vec<Bar> {
         let volume = base_volume * (0.5 + pseudo_random(i as u64 + 8000) * 1.5);
 
         bars.push(Bar {
-            timestamp: start_time + (i as i64 * 86400), // Daily bars
+            timestamp: start_time + (i as i64 * 86400),
             open,
             high,
             low,
