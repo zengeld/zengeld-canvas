@@ -124,11 +124,14 @@ jobs:
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
 
-  # Publish to npm
+  # Publish to npm (using OIDC Trusted Publishers)
   publish-npm:
     name: Publish to npm
     needs: [build-wasm]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # Required for OIDC
 
     steps:
       - uses: actions/checkout@v4
@@ -146,10 +149,8 @@ jobs:
           path: pkg/
 
       - name: Publish to npm
-        run: npm publish --access public
+        run: npm publish --access public --provenance
         working-directory: pkg
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   # Publish Rust crate to crates.io
   publish-crates:
