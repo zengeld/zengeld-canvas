@@ -15,6 +15,7 @@ A platform-agnostic rendering library for financial charts. Built in Rust with z
 - **14 Multi-Chart Layouts** - Grid, split, and custom layouts for dashboards
 - **Platform Agnostic** - `RenderContext` trait for any rendering backend
 - **Zero Dependencies** - Only serde for serialization
+- **Theme System** - 4 built-in presets (dark, light, high_contrast, cyberpunk) + runtime customization
 
 ## Installation
 
@@ -25,7 +26,7 @@ cargo add zengeld-canvas
 ## Quick Start
 
 ```rust
-use zengeld_canvas::{Chart, Bar};
+use zengeld_canvas::{Chart, Bar, UITheme};
 
 // Create chart with builder API
 let svg = Chart::new(800, 600)
@@ -35,8 +36,14 @@ let svg = Chart::new(800, 600)
     .rsi(14)
     .render_svg();
 
-// Save to file
-std::fs::write("chart.svg", svg)?;
+// With theme preset
+let theme = UITheme::cyberpunk();
+let svg = Chart::new(800, 600)
+    .bars(&bars)
+    .candlesticks()
+    .background(theme.colors.chart.background)
+    .colors(theme.colors.series.candle_up_body, theme.colors.series.candle_down_body)
+    .render_svg();
 ```
 
 ## Examples
@@ -44,13 +51,30 @@ std::fs::write("chart.svg", svg)?;
 <table>
   <tr>
     <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/09_dark_theme.svg" width="400"/><br/><b>Dark Theme</b></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/05_with_macd.svg" width="400"/><br/><b>MACD Indicator</b></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/09_light_theme.svg" width="400"/><br/><b>Light Theme</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/14_multichart_1_3.svg" width="400"/><br/><b>Multi-Chart Layout</b></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/19_primitives_channels.svg" width="400"/><br/><b>Channels</b></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/09b_high_contrast_theme.svg" width="400"/><br/><b>High Contrast Theme</b></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/09c_cyberpunk_theme.svg" width="400"/><br/><b>Cyberpunk Theme</b></td>
   </tr>
 </table>
+
+## Theme System
+
+Built-in presets: `dark`, `light`, `high_contrast`, `cyberpunk`
+
+```rust
+use zengeld_canvas::{UITheme, RuntimeTheme};
+
+// Static themes (compile-time)
+let dark = UITheme::dark();
+let light = UITheme::light();
+
+// Runtime themes (modifiable, JSON support)
+let mut theme = RuntimeTheme::from_preset("dark").unwrap();
+theme.colors.chart.background = "#1a0a2e".to_string();
+let json = theme.to_json();
+```
 
 ## Drawing Primitives
 

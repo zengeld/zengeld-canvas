@@ -14,6 +14,7 @@ Python bindings for the zengeld-canvas chart rendering engine. Built in Rust wit
 - **12 Series Types** - Candlestick, HeikinAshi, Line, Area, Histogram, Baseline, and more
 - **14 Multi-Chart Layouts** - Grid, split, and custom layouts for dashboards
 - **High Performance** - Native Rust speed via PyO3
+- **Theme System** - 4 built-in presets (dark, light, high_contrast, cyberpunk) + runtime customization
 
 ## Installation
 
@@ -24,23 +25,28 @@ pip install zengeld-canvas
 ## Quick Start
 
 ```python
-from zengeld_canvas import Chart, Bar
-
-# Create sample OHLCV data
-bars = [Bar(1703721600, 100.0, 105.0, 98.0, 103.0, 1000.0)]
+from zengeld_canvas import Chart, Bar, UITheme, RuntimeTheme
 
 # Build chart
 chart = Chart(800, 600)
 chart.bars(bars)
 chart.candlesticks()
 chart.sma(20, "#2196F3")
-
-# Render to SVG
 svg = chart.render_svg()
 
-# Save to file
-with open("chart.svg", "w") as f:
-    f.write(svg)
+# With theme preset
+theme = UITheme.cyberpunk()
+chart = Chart(800, 600)
+chart.bars(bars)
+chart.candlesticks()
+chart.background(theme.background)
+chart.colors(theme.candle_up_body, theme.candle_down_body)
+svg = chart.render_svg()
+
+# Runtime theme (modifiable)
+runtime = RuntimeTheme.from_preset("dark")
+runtime.background = "#1a0a2e"  # Custom background
+runtime.candle_up_body = "#00ffff"  # Cyan
 ```
 
 ## Examples
@@ -48,13 +54,33 @@ with open("chart.svg", "w") as f:
 <table>
   <tr>
     <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/09_dark_theme.svg" width="400"/><br/><b>Dark Theme</b></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/05_with_macd.svg" width="400"/><br/><b>MACD Indicator</b></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/09_light_theme.svg" width="400"/><br/><b>Light Theme</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/14_multichart_1_3.svg" width="400"/><br/><b>Multi-Chart Layout</b></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/19_primitives_channels.svg" width="400"/><br/><b>Channels</b></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/09b_high_contrast_theme.svg" width="400"/><br/><b>High Contrast Theme</b></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/09c_cyberpunk_theme.svg" width="400"/><br/><b>Cyberpunk Theme</b></td>
   </tr>
 </table>
+
+## Theme System
+
+Built-in presets: `dark()`, `light()`, `high_contrast()`, `cyberpunk()`
+
+```python
+from zengeld_canvas import UITheme, RuntimeTheme
+
+# Static themes
+dark = UITheme.dark()
+light = UITheme.light()
+
+# Runtime themes (modifiable, JSON support)
+runtime = RuntimeTheme.from_preset("dark")
+runtime.background = "#1a0a2e"
+json_str = runtime.to_json()
+
+# Available presets
+presets = RuntimeTheme.presets()  # ["dark", "light", "high_contrast", "cyberpunk"]
+```
 
 ## Drawing Primitives
 

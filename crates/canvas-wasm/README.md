@@ -13,6 +13,7 @@ WebAssembly bindings for the zengeld-canvas chart rendering engine. Built in Rus
 - **12 Series Types** - Candlestick, HeikinAshi, Line, Area, Histogram, Baseline, and more
 - **14 Multi-Chart Layouts** - Grid, split, and custom layouts for dashboards
 - **High Performance** - Native Rust speed via WebAssembly
+- **Theme System** - 4 built-in presets (dark, light, high_contrast, cyberpunk) + runtime customization
 
 ## Installation
 
@@ -23,30 +24,30 @@ npm install zengeld-canvas
 ## Quick Start
 
 ```javascript
-import init, { Chart, JsBar } from 'zengeld-canvas';
+import init, { Chart, JsBar, JsUITheme, JsRuntimeTheme } from 'zengeld-canvas';
 
-async function main() {
-  await init();
+await init();
 
-  // Create sample OHLCV data
-  const bars = [
-    new JsBar(1703721600n, 100.0, 105.0, 98.0, 103.0, 1000.0)
-  ];
+// Create chart
+const chart = new Chart(800, 600);
+chart.setBars(bars);
+chart.candlesticks();
+chart.sma(20, "#2196F3");
+const svg = chart.renderSvg();
 
-  // Create chart
-  const chart = new Chart(800, 600);
-  chart.setBars(bars);
-  chart.candlesticks();
-  chart.sma(20, "#2196F3");
+// With theme preset
+const theme = JsUITheme.cyberpunk();
+const chart2 = new Chart(800, 600);
+chart2.setBars(bars);
+chart2.candlesticks();
+chart2.background(theme.background);
+chart2.colors(theme.candle_up_body, theme.candle_down_body);
 
-  // Render to SVG
-  const svg = chart.renderSvg();
-
-  // Use in DOM
-  document.getElementById('chart').innerHTML = svg;
-}
-
-main();
+// Runtime theme (modifiable)
+const runtime = JsRuntimeTheme.fromPreset("dark");
+runtime.background = "#1a0a2e";  // Custom background
+runtime.candle_up_body = "#00ffff";  // Cyan
+const json = runtime.toJson();
 ```
 
 ## Examples
@@ -54,13 +55,33 @@ main();
 <table>
   <tr>
     <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/09_dark_theme.svg" width="400"/><br/><b>Dark Theme</b></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/05_with_macd.svg" width="400"/><br/><b>MACD Indicator</b></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/09_light_theme.svg" width="400"/><br/><b>Light Theme</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/14_multichart_1_3.svg" width="400"/><br/><b>Multi-Chart Layout</b></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/19_primitives_channels.svg" width="400"/><br/><b>Channels</b></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/09b_high_contrast_theme.svg" width="400"/><br/><b>High Contrast Theme</b></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/zengeld/zengeld-canvas/main/crates/canvas/chart_output/09c_cyberpunk_theme.svg" width="400"/><br/><b>Cyberpunk Theme</b></td>
   </tr>
 </table>
+
+## Theme System
+
+Built-in presets: `dark()`, `light()`, `highContrast()`, `cyberpunk()`
+
+```javascript
+import { JsUITheme, JsRuntimeTheme } from 'zengeld-canvas';
+
+// Static themes
+const dark = JsUITheme.dark();
+const light = JsUITheme.light();
+
+// Runtime themes (modifiable, JSON support)
+const runtime = JsRuntimeTheme.fromPreset("dark");
+runtime.background = "#1a0a2e";
+const json = runtime.toJson();
+
+// Available presets
+const presets = JsRuntimeTheme.presets();  // ["dark", "light", "high_contrast", "cyberpunk"]
+```
 
 ## Drawing Primitives
 

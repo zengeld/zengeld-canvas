@@ -32,16 +32,16 @@ function pseudoRandom(seed) {
 }
 
 /**
- * Generate sample OHLCV bars with realistic price movement
+ * Generate sample OHLCV bar data (raw objects, not JsBar)
+ * We store raw data because JsBar objects are consumed when passed to setBars
  */
-function generateSampleBars(count) {
-    const bars = [];
+function generateSampleBarData(count) {
+    const data = [];
     let price = 100.0;
     const baseVolume = 1_000_000.0;
     const startTime = 1700000000;
 
     for (let i = 0; i < count; i++) {
-        // Random walk with trend
         const trend = Math.sin((i / count) * Math.PI * 2.0) * 10.0;
         const noise = pseudoRandom(i) * 4.0 - 2.0;
         const change = trend * 0.1 + noise;
@@ -68,17 +68,24 @@ function generateSampleBars(count) {
 
         const volume = baseVolume * (0.5 + pseudoRandom(i + 8000) * 1.5);
 
-        bars.push(new wasm.JsBar(
-            BigInt(startTime + (i * 86400)),
+        data.push({
+            timestamp: BigInt(startTime + (i * 86400)),
             open,
             high,
             low,
             close,
             volume
-        ));
+        });
     }
 
-    return bars;
+    return data;
+}
+
+/**
+ * Convert raw bar data to JsBar array (creates new objects each time)
+ */
+function toBars(data) {
+    return data.map(d => new wasm.JsBar(d.timestamp, d.open, d.high, d.low, d.close, d.volume));
 }
 
 /**
@@ -101,9 +108,9 @@ async function main() {
         fs.mkdirSync(outputDir, { recursive: true });
     }
 
-    // Generate sample data
-    const bars = generateSampleBars(200);
-    console.log(`Generated ${bars.length} sample bars\n`);
+    // Generate sample data (raw objects, not JsBar)
+    const barData = generateSampleBarData(200);
+    console.log(`Generated ${barData.length} sample bars\n`);
 
     // =========================================================================
     // Theme Showcase
@@ -112,7 +119,7 @@ async function main() {
     // 01. Dark Theme (default)
     console.log("01. Dark Theme Chart");
     let chart = new wasm.Chart(800, 400);
-    chart.setBars(bars);
+    chart.setBars(toBars(barData));
     chart.candlesticks();
     chart.darkTheme();
     chart.sma(20, "#2196F3");
@@ -124,7 +131,7 @@ async function main() {
     console.log("02. Light Theme Chart");
     const light = wasm.JsUITheme.light();
     chart = new wasm.Chart(800, 400);
-    chart.setBars(bars);
+    chart.setBars(toBars(barData));
     chart.candlesticks();
     chart.setBackground(light.background);
     chart.setColors(light.candleUpBody, light.candleDownBody);
@@ -136,7 +143,7 @@ async function main() {
     console.log("03. High Contrast Theme Chart");
     const contrast = wasm.JsUITheme.highContrast();
     chart = new wasm.Chart(800, 400);
-    chart.setBars(bars);
+    chart.setBars(toBars(barData));
     chart.candlesticks();
     chart.setBackground(contrast.background);
     chart.setColors(contrast.candleUpBody, contrast.candleDownBody);
@@ -148,7 +155,7 @@ async function main() {
     console.log("04. Cyberpunk Theme Chart");
     const cyber = wasm.JsUITheme.cyberpunk();
     chart = new wasm.Chart(800, 400);
-    chart.setBars(bars);
+    chart.setBars(toBars(barData));
     chart.candlesticks();
     chart.setBackground(cyber.background);
     chart.setColors(cyber.candleUpBody, cyber.candleDownBody);
@@ -163,7 +170,7 @@ async function main() {
     runtime.candleUpBody = "#00ffff";  // Cyan
     runtime.candleDownBody = "#ff00ff";  // Magenta
     chart = new wasm.Chart(800, 400);
-    chart.setBars(bars);
+    chart.setBars(toBars(barData));
     chart.candlesticks();
     chart.setBackground(runtime.background);
     chart.setColors(runtime.candleUpBody, runtime.candleDownBody);
@@ -178,7 +185,7 @@ async function main() {
     // 06. Chart with MACD
     console.log("06. Chart with MACD");
     chart = new wasm.Chart(800, 500);
-    chart.setBars(bars);
+    chart.setBars(toBars(barData));
     chart.candlesticks();
     chart.ema(12, "#2196F3");
     chart.ema(26, "#FF9800");
@@ -189,7 +196,7 @@ async function main() {
     // 07. Chart with RSI
     console.log("07. Chart with RSI");
     chart = new wasm.Chart(800, 500);
-    chart.setBars(bars);
+    chart.setBars(toBars(barData));
     chart.candlesticks();
     chart.sma(20, "#2196F3");
     chart.rsi(14);
@@ -199,7 +206,7 @@ async function main() {
     // 08. Chart with Bollinger Bands
     console.log("08. Chart with Bollinger Bands");
     chart = new wasm.Chart(800, 400);
-    chart.setBars(bars);
+    chart.setBars(toBars(barData));
     chart.candlesticks();
     chart.bollinger(20, 2.0);
     svg = chart.renderSvg();
@@ -212,21 +219,21 @@ async function main() {
     // 09. Lines and Shapes
     console.log("09. Lines and Shapes");
     chart = new wasm.Chart(1000, 500);
-    chart.setBars(bars);
+    chart.setBars(toBars(barData));
     chart.candlesticks();
-    chart.trendLine([20.0, bars[20].low], [80.0, bars[80].low]);
-    chart.horizontalLine(bars[50].high + 5.0);
+    chart.trendLine([20.0, barData[20].low], [80.0, barData[80].low]);
+    chart.horizontalLine(barData[50].high + 5.0);
     chart.verticalLine(100.0);
-    chart.rectangle([30.0, bars[30].high], [60.0, bars[45].low]);
+    chart.rectangle([30.0, barData[30].high], [60.0, barData[45].low]);
     svg = chart.renderSvg();
     saveSvg(svg, path.join(outputDir, '09_lines_shapes.svg'));
 
     // 10. Fibonacci
     console.log("10. Fibonacci Retracement");
     chart = new wasm.Chart(1000, 500);
-    chart.setBars(bars);
+    chart.setBars(toBars(barData));
     chart.candlesticks();
-    chart.fibRetracement([20.0, bars[20].low], [80.0, bars[50].high]);
+    chart.fibRetracement([20.0, barData[20].low], [80.0, barData[50].high]);
     svg = chart.renderSvg();
     saveSvg(svg, path.join(outputDir, '10_fibonacci.svg'));
 
@@ -237,14 +244,14 @@ async function main() {
     // 11. Trading Signals
     console.log("11. Trading Signals");
     chart = new wasm.Chart(1000, 500);
-    chart.setBars(bars);
+    chart.setBars(toBars(barData));
     chart.candlesticks();
     chart.sma(10, "#26a69a");
     chart.sma(30, "#ef5350");
-    chart.buySignal(25, bars[25].low - 2.0, "Long");
-    chart.sellSignal(60, bars[60].high + 2.0, "Short");
-    chart.takeProfitSignal(45, bars[45].high + 1.0, "TP1");
-    chart.stopLossSignal(95, bars[95].high + 3.0, "SL");
+    chart.buySignal(25, barData[25].low - 2.0, "Long");
+    chart.sellSignal(60, barData[60].high + 2.0, "Short");
+    chart.takeProfitSignal(45, barData[45].high + 1.0, "TP1");
+    chart.stopLossSignal(95, barData[95].high + 3.0, "SL");
     svg = chart.renderSvg();
     saveSvg(svg, path.join(outputDir, '11_signals.svg'));
 

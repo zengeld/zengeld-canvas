@@ -21,11 +21,15 @@ A platform-agnostic rendering library for financial charts. Built in Rust with z
 <table>
   <tr>
     <td align="center"><img src="crates/canvas/chart_output/09_dark_theme.svg" width="400"/><br/><b>Dark Theme</b></td>
-    <td align="center"><img src="crates/canvas/chart_output/05_with_macd.svg" width="400"/><br/><b>MACD Indicator</b></td>
+    <td align="center"><img src="crates/canvas/chart_output/09_light_theme.svg" width="400"/><br/><b>Light Theme</b></td>
   </tr>
   <tr>
+    <td align="center"><img src="crates/canvas/chart_output/09b_high_contrast_theme.svg" width="400"/><br/><b>High Contrast Theme</b></td>
+    <td align="center"><img src="crates/canvas/chart_output/09c_cyberpunk_theme.svg" width="400"/><br/><b>Cyberpunk Theme</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="crates/canvas/chart_output/05_with_macd.svg" width="400"/><br/><b>MACD Indicator</b></td>
     <td align="center"><img src="crates/canvas/chart_output/14_multichart_1_3.svg" width="400"/><br/><b>Multi-Chart Layout</b></td>
-    <td align="center"><img src="crates/canvas/chart_output/19_primitives_channels.svg" width="400"/><br/><b>Channels</b></td>
   </tr>
   <tr>
     <td align="center"><img src="crates/canvas/chart_output/22_primitives_gann.svg" width="400"/><br/><b>Gann Tools</b></td>
@@ -42,6 +46,7 @@ A platform-agnostic rendering library for financial charts. Built in Rust with z
 - **Platform Agnostic** - `RenderContext` trait for any rendering backend
 - **Zero Dependencies** - Only serde for serialization
 - **High Performance** - Optimized for real-time chart rendering
+- **Theme System** - 4 built-in presets (dark, light, high_contrast, cyberpunk) + runtime customization
 
 ## Drawing Primitives
 
@@ -72,12 +77,25 @@ Pre-configured styles for common technical indicators (you provide the data, we 
 
 **Trend:** ADX, Aroon, Vortex, Supertrend, ZigZag, Parabolic SAR, Ichimoku
 
+## Theme System
+
+Built-in theme presets with full customization support:
+
+| Preset | Description |
+|--------|-------------|
+| `dark` | Dark background with green/red candles (default) |
+| `light` | Light background for printing and bright environments |
+| `high_contrast` | Maximum contrast for accessibility |
+| `cyberpunk` | Neon colors on dark purple background |
+
+Themes can be customized at runtime via `RuntimeTheme` with JSON serialization support.
+
 ## Quick Start
 
 ### Rust
 
 ```rust
-use zengeld_canvas::{Chart, Bar};
+use zengeld_canvas::{Chart, Bar, UITheme};
 
 // Create chart with builder API
 let svg = Chart::new(800, 600)
@@ -87,43 +105,60 @@ let svg = Chart::new(800, 600)
     .rsi(14)
     .render_svg();
 
-// Save to file
-std::fs::write("chart.svg", svg)?;
+// With theme
+let theme = UITheme::light();
+let svg = Chart::new(800, 600)
+    .bars(&bars)
+    .candlesticks()
+    .background(theme.colors.chart.background)
+    .colors(theme.colors.series.candle_up_body, theme.colors.series.candle_down_body)
+    .render_svg();
 ```
 
 ### Python
 
 ```python
-from zengeld_canvas import Chart, Bar
-
-# Create bars
-bars = [Bar(time=1703721600, open=100.0, high=105.0, low=98.0, close=103.0)]
+from zengeld_canvas import Chart, Bar, UITheme
 
 # Build chart
 chart = Chart(800, 600)
 chart.bars(bars)
 chart.candlesticks()
 chart.sma(20, "#2196F3")
+svg = chart.render_svg()
 
-# Render to SVG
+# With theme
+theme = UITheme.light()
+chart = Chart(800, 600)
+chart.bars(bars)
+chart.candlesticks()
+chart.background(theme.background)
+chart.colors(theme.candle_up_body, theme.candle_down_body)
 svg = chart.render_svg()
 ```
 
 ### JavaScript
 
 ```javascript
-import init, { Chart, JsBar } from 'zengeld-canvas';
+import init, { Chart, JsBar, JsUITheme } from 'zengeld-canvas';
 
 await init();
 
 // Create chart
 const chart = new Chart(800, 600);
-chart.bars(bars);
+chart.setBars(bars);
 chart.candlesticks();
 chart.sma(20, "#2196F3");
-
-// Render to SVG
 const svg = chart.renderSvg();
+
+// With theme
+const theme = JsUITheme.light();
+const chart2 = new Chart(800, 600);
+chart2.setBars(bars);
+chart2.candlesticks();
+chart2.background(theme.background);
+chart2.colors(theme.candle_up_body, theme.candle_down_body);
+const svg2 = chart2.renderSvg();
 ```
 
 ## License
